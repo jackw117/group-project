@@ -31,7 +31,7 @@ myApp.config(function($stateProvider){
 		})
 		.state('photos', {
 			url: '/photos',
-			templateUrl: 'templates/photos.html',
+			templateUrl: 'templates/photo.html',
 			controller: 'photosCtrl'
 		})
 		.state('contact', {

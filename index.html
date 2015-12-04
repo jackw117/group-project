@@ -17,33 +17,30 @@
     
     <!-- Custom code -->
     <script src="js/app.js"></script>
-    <link href = "css/app.css" rel="stylesheet" type = "text/css"/>
+    <link href="css/main.css" rel="stylesheet" type = "text/css"/>
     
   </head>
   <body>
-    <div>
-      <header>
-
-        <!-- Create links to different sections -->
-          <h1>This is the header -- it'll stick around</h1>        
-          <a ui-sref='home'>Home</a>
-          <a ui-sref='mission'>What We Do</a>
-          <a ui-sref='about'>Who We Are</a>
-          <a ui-sref='membership'>Membership</a>
-          <a ui-sref='events'>Events</a>
-          <a ui-sref='photo'>Photo</a>
-          <a ui-sref='contact'>Contact</a>
-  		</header>
-        
+    <div>        
+      <nav class="navbar navbar-default navbar-static-top container-fluid">
+          <div class="container">
+              <ul>
+                  <a ui-sref="home">Home</a>
+                  <a ui-sref="mission">What We Do</a>
+                  <a ui-sref="about">Who We Are</a>
+                  <a ui-sref="membership">Membership</a>
+                  <a ui-sref="events">Events</a>
+                  <a ui-sref="photos">Photo</a>
+                  <a ui-sref="contact">Contact</a>
+              </ul>
+          </div>
+      </nav>
 
       <div class="container">
         <!-- This is where your content will display -->
         <div ui-view></div>
       </div>
 
-      <footer>
-          <h2>(This is the footer -- it'll stick around too)</h2>
-      </footer>
     </div>
   </body>
 </html>
