@@ -13,45 +13,25 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 		templateUrl: 'templates/home.html',
 		controller: 'homeCtrl',
 		})
-		.state('mission', {
-			url: '/mission',
-			templateUrl: 'templates/mission.html',
-			controller: 'missionCtrl'
-		})
 		.state('about', {
 			url: '/about',
 			templateUrl: 'templates/about.html',
 			controller: 'aboutCtrl'
-		})
-		.state('membership', {
-			url: '/membership',
-			templateUrl: 'templates/membership.html',
-			controller: 'membershipCtrl'
 		})
 		.state('events', {
 			url: '/events',
 			templateUrl: 'templates/events.html',
 			controller: 'eventsCtrl'
 		})
-		.state('photos', {
-			url: '/photos',
-			templateUrl: 'templates/photo.html',
-			controller: 'photosCtrl'
-		})
-		.state('contact', {
-			url: '/contact',
-			templateUrl: 'templates/contact.html',
-			controller: 'contactCtrl'
+		.state('connect', {
+			url: '/connect',
+			templateUrl: 'templates/connect.html',
+			controller: 'connectCtrl'
 		})
 })
 
 // Landing page controller: define $scope.number as a number
 .controller('homeCtrl', function($scope){
-	
-})
-
-// About page controller: define $scope.about as a string
-.controller('missionCtrl', function($scope){
 	
 })
 
@@ -61,22 +41,12 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 // Content controller: define $scope.url as an image
-.controller('membershipCtrl', function($scope){
-	
-})
-
-// Content controller: define $scope.url as an image
 .controller('eventsCtrl', function($scope){
 	
 })
 
 // Content controller: define $scope.url as an image
-.controller('photosCtrl', function($scope){
-	
-})
-
-// Content controller: define $scope.url as an image
-.controller('contactCtrl', function($scope){
+.controller('connectCtrl', function($scope){
 	
 })
 
