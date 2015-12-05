@@ -2,8 +2,12 @@
 var myApp = angular.module('myApp', ['ui.router'])
 
 // Configure app
-myApp.config(function($stateProvider){
-	$stateProvider
+myApp.config(function($stateProvider, $urlRouterProvider){
+	
+    //Redirects to home page for any unmatched url
+    $urlRouterProvider.otherwise('');
+    
+    $stateProvider
 		.state('home', {
 		url: '',
 		templateUrl: 'templates/home.html',
