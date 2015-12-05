@@ -5,11 +5,11 @@ var myApp = angular.module('myApp', ['ui.router'])
 myApp.config(function($stateProvider, $urlRouterProvider){
 	
     //Redirects to home page for any unmatched url
-    $urlRouterProvider.otherwise('');
+    $urlRouterProvider.otherwise('/');
     
     $stateProvider
 		.state('home', {
-		url: '',
+		url: '/',
 		templateUrl: 'templates/home.html',
 		controller: 'homeCtrl',
 		})
@@ -31,8 +31,11 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 // Landing page controller: define $scope.number as a number
-.controller('homeCtrl', function($scope){
-	
+.controller('homeCtrl', function($scope, $http){
+	$http.get('json/blogs.json')
+		.then(function(dat) {
+			$scope.blogs = dat.data;
+		});
 })
 
 // Content controller: define $scope.url as an image

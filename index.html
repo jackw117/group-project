@@ -11,6 +11,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Add ui-router library here -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
@@ -20,9 +21,8 @@
     <link href="css/main.css" rel="stylesheet" type = "text/css"/>
     
   </head>
-  <body>
-    <div>        
-      <nav class="navbar navbar-inverse navbar-static-top">
+  <body>      
+      <nav class="navbar-inverse navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navLinks" aria-expanded="false">
@@ -36,20 +36,38 @@
 
           <div class="collapse navbar-collapse" id="navLinks">
             <ul class="nav navbar-nav navbar-right">
-              <li><a ui-sref="home">Home</a></li>
-              <li><a ui-sref="about">About</a></li>
-              <li><a ui-sref="events">Events</a></li>
-              <li><a ui-sref="connect">Connect</a></li>
+              <li class="sliding-u-l-r"><a ui-sref="home">Home</a></li>
+              <li class="sliding-u-l-r"><a ui-sref="about">About</a></li>
+              <li class="sliding-u-l-r"><a ui-sref="events">Events</a></li>
+              <li class="sliding-u-l-r"><a ui-sref="connect">Connect</a></li>
             </ul>  
           </div>
         </div>
       </nav>
 
-      <div class="container">
+      <div class="container-fluid ui-view">
         <!-- This is where your content will display -->
         <div ui-view></div>
       </div>
 
-    </div>
+      <div class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-7 leftFooter">
+              <p id="copyright">&#169; 2015, OCA Greater Seattle Chapter - All Rights Reserved</p>
+              <p>No part of this website or any of its contents may be reproduced, copied, modified or adapted, without the prior written consent of the The Mentoring Project.</p>
+              <span class="fa-3x">
+                <i class="fa fa-twitter-square"></i>
+              </span>
+              <span class="fa-3x">
+                <i class="fa fa-facebook-square"></i>
+              </span>
+            </div>
+            <div class="col-sm-5 rightFooter">
+                Contact | RSS
+            </div>
+          </div>
+        </div>
+      </div>
   </body>
 </html>

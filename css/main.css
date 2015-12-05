@@ -1,18 +1,131 @@
 @import url(https://fonts.googleapis.com/css?family=Muli);
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
 
 body {
+	font-family: 'Open Sans', sans-serif;
+	margin-top: 58px;
+	padding-top: 2px;
+}
 
+.brandLogo {
+	height: 60px;
+}
+
+.footer {
+	padding-top: 20px;
+	background-color: rgb(53, 52, 52);
+	border-bottom: solid;
+	border-bottom-width: 30px;
+	border-bottom-color: rgb(45, 45, 45);
+	color: rgb(155, 154, 154);
+	font-size: 12px;
+	text-align: center;
+}
+
+.fa, #copyright {
+	color: rgb(236, 70, 51)
+}
+
+#copyright {
+	font-size: 14px;
+	font-weight: 200;
+}
+
+nav {
+	background-color: rgb(29,29,29) !important;
+}
+
+.ui-view {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.thumbnail {
+	border-style: none;
+}
+
+.header {	
+	padding-top: 20px;
+    background: url(../img/LanternBackground.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 500px;
+}
+
+.page-header small {
+	font-weight: 300;
+	font-style: italic;
+	color: #C0C0C0;
+	text-transform: none;
+}
+
+.page-header {
+	border: none;
+	font-family: Oswald, sans-serif;
+	text-transform: uppercase;
+	color: white;
+}
+
+.title {
+	font-family: Oswald;
+	text-transform: uppercase;
+	padding-bottom: 20px;
+}
+
+.contentText {
+	font-weight: 100;
+}
+
+div .section {
+	margin-top: 50px;
+	border-top-color: #C0C0C0;
+	border-top-style: solid;
+	border-top-width: thin;
 }
 
 /* Section handles screens wider that 768px */
 @media screen and (min-width: 768px) {
     
+	.leftFooter {
+		text-align: left;
+	}
+
+	.rightFooter {
+		text-align: right;
+	}
+
     .navbar-brand, .navbar-nav li a {
         padding-top: 0;
         padding-bottom: 0;
-        line-height: 90px;
+        line-height: 60px;
         font-family: 'Muli', Helvetica, Arial, sans-serif;
         text-transform: uppercase;
+        display: inline-block;
     }
 
+    /*---------- Navbar annimation ----------*/	
+	.sliding-u-l-r:after {
+		content: '';
+		display: block;
+		height: 3px;
+		width: 0;
+		background: transparent;
+		transition: width .5s ease, background-color .5s ease;
+	}
+	
+	.sliding-u-l-r:hover:after {
+		width: 100%;
+		background: rgb(236, 70, 51);
+	}
+	/*----------------------------------------*/
+
+	.navbar-inverse .navbar-nav>li>a:hover {
+		color: white;
+	}
+
+	.navbar-inverse .navbar-nav>li>a:focus {
+		color: rgb(236, 70, 51);
+	}
 }
