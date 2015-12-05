@@ -1,11 +1,18 @@
+@import url(https://fonts.googleapis.com/css?family=Muli);
+
 body {
 
 }
 
-
 /* Section handles screens wider that 768px */
 @media screen and (min-width: 768px) {
-
-
+    
+    .navbar-brand, .navbar-nav li a {
+        padding-top: 0;
+        padding-bottom: 0;
+        line-height: 90px;
+        font-family: 'Muli', Helvetica, Arial, sans-serif;
+        text-transform: uppercase;
+    }
 
 }
