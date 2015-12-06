@@ -92,6 +92,20 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         });
         $scope.eventClick = false;
     }
+    
+        //Calender settings
+    $scope.uiConfig = {
+      calendar:{
+        height: 450,
+        editable: false,
+        header:{
+          left: 'title month agendaWeek',
+          center: '',
+          right: 'today prev,next'
+        },
+        eventMouseover: $scope.hoverEvent
+      }
+    };
 
     $scope.logIn = function() {
         $scope.signInClick = false;
