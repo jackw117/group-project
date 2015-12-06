@@ -1,5 +1,5 @@
 // Create app
-var myApp = angular.module('myApp', ['ui.router'])
+var myApp = angular.module('myApp', ['ui.router', 'firebase'])
 
 // Configure app
 myApp.config(function($stateProvider, $urlRouterProvider){
@@ -44,8 +44,14 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 // Content controller: define $scope.url as an image
-.controller('eventsCtrl', function($scope){
-	
+.controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
+	var ref = new Firebase("https://oca.firebaseio.com/");
+	var usersRef = ref.child("users");
+	$scope.users = $firebaseObject(usersRef);
+	$scope.authObj = $firebaseAuth(ref);
+	var authData = $scope.authObj.$getAuth();
+
+
 })
 
 // Content controller: define $scope.url as an image
