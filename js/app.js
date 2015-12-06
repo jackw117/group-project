@@ -77,15 +77,20 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 //    }
     
     $scope.addEvent = function() {
-        
+        var newDate = $scope.date.toISOString();
+        correctTime(Number(newDate.substr(11,2)));
         $scope.events.$add({
-            date: $scope.date
+            year: newDate.substr(0,4),
+            month: newDate.substr(5,2),
+            day: newDate.substr(8,2),
+            time: correctTime + newDate.substr(13,3),
+            title: $scope.title
         })
         .then(function() {
-           $scope.date = ""; 
+            $scope.date = "";
+            $scope.title = "";
         });
         $scope.eventClick = false;
-        console.log($scope.events)
     }
 
     $scope.logIn = function() {
@@ -103,22 +108,13 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         });
     }
     
-//    $scope.checkNames = function() {
-//        $scope.nameInUse = false;
-//        $scope.users.forEach(function(data) {
-//            if (data.handle === $scope.handle) {
-//                $scope.nameInUse = true;
-//            }
-//        });
-//        $scope.checkInUse();
-//    }
-//
-//    $scope.checkInUse = function() {
-//        if (!$scope.nameInUse) {
-//            $scope.signUp();
-//            $scope.signInClick = false;
-//        }
-//    }
+    var correctTime = function(num) {
+        if (num < 7) {
+            return num + 17;  
+        } else {
+            return num - 7;   
+        }
+    }
 })
 
 // Content controller: define $scope.url as an image
