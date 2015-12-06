@@ -1,3 +1,23 @@
 <div>
-	<p>Events, place the calendar here?</p>
+	<button ng-hide="signInClick || loggedIn" class="btn btn-info" ng-click="signInClick = true">Sign In</button>
+    
+    <div ng-show="signInClick">
+        <form name="logInForm">
+            <label for="email">Email:</label>
+            <input id="email" class="form-control" ng-model="email" type="email" required>
+            <label for="password">Password:</label>
+            <input id="password" class="form-control" ng-model="password" type="password" required>
+            <button class="btn btn-primary" ng-click="signIn()" ng-disabled="logInForm.$invalid">Submit</button>
+        </form>
+    </div>
+    
+    <div ng-show="loggedIn">
+        <button class="btn btn-info" ng-hide="eventClick" ng-click="eventClick = true">Add Event</button>
+        <form ng-show="eventClick" name="eventForm">
+            <label for="date">Date:</label>
+            <input id="date" type="date" ng-model="date" required>
+            <button class="btn btn-info" ng-disabled="eventForm.$invalid" ng-click="addEvent()">Submit</button>
+            <p>{{date}}</p>
+        </form>
+    </div>
 </div>
