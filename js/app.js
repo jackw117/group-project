@@ -30,17 +30,20 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 		})
 })
 
-// Landing page controller: define $scope.number as a number
+
 .controller('homeCtrl', function($scope, $http){
 	$http.get('json/blogs.json')
 		.then(function(dat) {
 			$scope.blogs = dat.data;
-		});
+	});
 })
 
 // Content controller: define $scope.url as an image
-.controller('aboutCtrl', function($scope){
-	
+.controller('aboutCtrl', function($scope, $http){
+	// Gets data containing artwork information
+	$http.get('json/profiles.json').success(function(response){
+		$scope.profiles = response
+	})
 })
 
 // Content controller: define $scope.url as an image
