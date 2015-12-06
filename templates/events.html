@@ -1,5 +1,5 @@
 <div>
-	<button ng-hide="signInClick || loggedIn" class="btn btn-info" ng-click="signInClick = true">Sign In</button>
+	<button ng-hide="signInClick || loggedIn" class="btn btn-info" ng-click="signInClick = true; addToCalendar()">Sign In</button>
     
     <div ng-show="signInClick">
         <form name="logInForm">

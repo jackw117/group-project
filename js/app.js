@@ -60,6 +60,8 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.loggedIn = false;
     $scope.eventClick = false;
     
+    $scope.newEvents = [];
+    
 //    $scope.signUp = function() {
 //        $scope.authObj.$createUser({
 //            email: $scope.email,
@@ -78,22 +80,22 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
-        correctTime(Number(newDate.substr(11,2)));
         $scope.events.$add({
-            year: newDate.substr(0,4),
-            month: newDate.substr(5,2),
-            day: newDate.substr(8,2),
-            time: correctTime + newDate.substr(13,3),
-            title: $scope.title
+            title: $scope.title,
+            year: Number(newDate.substr(0,4)),
+            month: Number(newDate.substr(5,2)),
+            day: Number(newDate.substr(8,2)),
+            hour: correctTime(Number(newDate.substr(11,2))),
+            minute: Number(newDate.substr(14,2))
         })
         .then(function() {
             $scope.date = "";
             $scope.title = "";
         });
         $scope.eventClick = false;
+        $scope.addToCalendar();
     }
     
-        //Calender settings
     $scope.uiConfig = {
       calendar:{
         height: 450,
@@ -105,7 +107,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         },
         eventMouseover: $scope.hoverEvent
       }
-    };
+    }
 
     $scope.logIn = function() {
         $scope.signInClick = false;
@@ -123,12 +125,26 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     }
     
     var correctTime = function(num) {
-        if (num < 7) {
-            return num + 17;  
+        if (num >= 8) {
+            return num - 8;  
         } else {
-            return num - 7;   
+            //fix this one to make it go back if > 24
+            return num + 4;   
         }
     }
+    
+    //make this one add to calendar when page loads
+    $scope.addToCalendar = function() {
+        $scope.events.forEach(function(data) {
+            $scope.newEvents.push({
+                title: data.title,
+                start: new Date(data.year, data.month - 1, data.day, data.hour, data.minute),
+                stick: true
+            });
+        });       
+    }
+    
+    $scope.eventSources = [$scope.newEvents];
 })
 
 // Content controller: define $scope.url as an image
