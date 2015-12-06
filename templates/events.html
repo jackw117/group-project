@@ -14,8 +14,10 @@
     <div ng-show="loggedIn">
         <button class="btn btn-info" ng-hide="eventClick" ng-click="eventClick = true">Add Event</button>
         <form ng-show="eventClick" name="eventForm">
+            <label for="title">Title:</label>
+            <input class="form-control" id="title" type="text" ng-model="title" required>
             <label for="date">Date:</label>
-            <input id="date" type="date" ng-model="date" required>
+            <input class="form-control" id="date" type="datetime-local" ng-model="date" required>
             <button class="btn btn-info" ng-disabled="eventForm.$invalid" ng-click="addEvent()">Submit</button>
             <p>{{date}}</p>
         </form>
