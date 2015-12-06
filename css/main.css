@@ -11,6 +11,14 @@ body {
 	height: 60px;
 }
 
+.alternateBackground1 {
+	background: url(../img/BambooBackground.jpg) no-repeat center center;
+}
+
+.alternateBackground2 {
+	background-color: rgba(240, 237, 227, 0.9);
+}
+
 .footer {
 	padding-top: 20px;
 	background-color: rgb(53, 52, 52);
@@ -46,7 +54,7 @@ nav {
 
 .header {	
 	padding-top: 20px;
-    background: url(../img/LanternBackground.jpg) no-repeat center center fixed;
+    background: url(../img/LanternBackground.jpg) no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

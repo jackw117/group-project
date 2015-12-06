@@ -1,4 +1,4 @@
-<!-- -->
+<!-- Banner Header-->
 <div class=" container-fluid header text-center">
 	<img src="img/logo_only.png"/>
 	<div class="page-header">
@@ -9,21 +9,29 @@
 <div class="container section">
     <h1 class="title text-center">Events</h1>
 </div>
-<div class="container section">
-    <h1 class="title text-center">Featured Posts</h1>
-    <div class="row">
-    	<div class="col-md-4" ng-repeat="post in blogs">
-    		<div class="thumbnail">
-      			<img src="{{post.image}}" alt="...">
-      			<div class="caption">
-			        <h3>{{post.title}}</h3>
-			        <p class="contentText">{{post.preview_text}}</p>
-      			</div>
-	      		<div class="text-center"><i class="fa fa-arrow-circle-right fa-3x"></i></div>
-    		</div>
-  		</div>
+
+<!-- Blogs -->
+<div class="alternateBackground1">
+	<div class="container section">
+	    <h1 class="title text-center">Featured Posts</h1>
+	    <div class="row">
+	    	<div class="col-md-4" ng-repeat="post in blogs">
+	    		<div class="thumbnail">
+	      			<img src="{{post.image}}" alt="...">
+	      			<div class="caption">
+				        <h3>{{post.title}}</h3>
+				        <p class="contentText">{{post.preview_text}}</p>
+	      			</div>
+		      		<div class="text-center"><i class="fa fa-arrow-circle-right fa-3x"></i></div>
+	    		</div>
+	  		</div>
+		</div>
 	</div>
 </div>
-<div class="container section">
-    <h1 class="title text-center">Photos</h1>
+
+<!-- Photos -->
+<div class="alternateBackground2">
+	<div class="container section">
+	    <h1 class="title text-center">Photos</h1>
+	</div>
 </div>
