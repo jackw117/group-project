@@ -7,6 +7,10 @@ body {
 	padding-top: 2px;
 }
 
+.fa-plus {
+	color: green;
+}
+
 .brandLogo {
 	height: 60px;
 }

@@ -1,5 +1,5 @@
 <div class="container">
-	<button ng-hide="signInClick || loggedIn" class="btn btn-info" ng-click="signInClick = true; addToCalendar()">Sign In</button>
+	<button ng-hide="signInClick || loggedIn" class="btn btn-link" ng-click="signInClick = true"><i class="fa fa-plus"></i></button>
     
     <div ng-show="signInClick">
         <form name="logInForm">
@@ -8,6 +8,7 @@
             <label for="password">Password:</label>
             <input id="password" class="form-control" ng-model="password" type="password" required>
             <button class="btn btn-primary" ng-click="signIn()" ng-disabled="logInForm.$invalid">Submit</button>
+            <button class="btn btn-warning" ng-click="signInClick = false">Cancel</button>
         </form>
     </div>
     
@@ -18,9 +19,20 @@
             <input class="form-control" id="title" type="text" ng-model="title" required>
             <label for="date">Date:</label>
             <input class="form-control" id="date" type="datetime-local" ng-model="date" required>
+            <label for="description">Describe the event:</label>
+            <textarea id="description" ng-model="description" class="form-control" rows="10" required></textarea>
             <button class="btn btn-info" ng-disabled="eventForm.$invalid" ng-click="addEvent()">Submit</button>
-            <p>{{date}}</p>
         </form>
     </div>
-     <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+
+    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+
+    <div>
+        <h1>Upcoming Events</h1>
+        <div ng-repeat="event in events">
+            <h2>{{event.title}}</h2>
+            <h3>{{event.month}}/{{event.day}} {{event.hour}}:{{event.minute}}</h3>
+            <p>{{event.description}}</p>
+        </div>
+    </div>
 </div>

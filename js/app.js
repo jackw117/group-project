@@ -80,20 +80,27 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
+        var year = Number(newDate.substr(0,4));
+        var month = Number(newDate.substr(5,2));
+        var day = Number(newDate.substr(8,2));
+        var hour = correctTime(Number(newDate.substr(11,2)));
+        var minute = Number(newDate.substr(14,2));
         $scope.events.$add({
             title: $scope.title,
-            year: Number(newDate.substr(0,4)),
-            month: Number(newDate.substr(5,2)),
-            day: Number(newDate.substr(8,2)),
-            hour: correctTime(Number(newDate.substr(11,2))),
-            minute: Number(newDate.substr(14,2))
+            description: $scope.description,
+            year: year,
+            month: month,
+            day: day,
+            hour: hour,
+            minute: minute
         })
         .then(function() {
             $scope.date = "";
             $scope.title = "";
-        });
-        $scope.eventClick = false;
-        $scope.addToCalendar();
+        })
+        .then(function() {
+            $scope.eventClick = false; 
+        });     
     }
     
     $scope.uiConfig = {
@@ -125,10 +132,11 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     }
     
     var correctTime = function(num) {
-        if (num >= 8) {
+        if (num >= 8 && num < 20) {
             return num - 8;  
+        } else if (num >= 20) {
+            return num - 20;
         } else {
-            //fix this one to make it go back if > 24
             return num + 4;   
         }
     }
@@ -145,6 +153,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     }
     
     $scope.eventSources = [$scope.newEvents];
+    console.log($scope.eventSources)
 })
 
 // Content controller: define $scope.url as an image
