@@ -78,10 +78,13 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 //        })
 //    }
     
+    //switches PM to AM, and increases day by 1
+    //will fix later
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
         $scope.events.$add({
             title: $scope.title,
+            description: $scope.description,
             year: Number(newDate.substr(0,4)),
             month: Number(newDate.substr(5,2)),
             day: Number(newDate.substr(8,2)),
@@ -91,9 +94,11 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         .then(function() {
             $scope.date = "";
             $scope.title = "";
-        });
-        $scope.eventClick = false;
-        $scope.addToCalendar();
+            $scope.description = "";
+            $scope.newEvents = [];
+            $scope.addToCalendar();
+            $scope.eventClick = false;
+        });    
     }
     
     $scope.uiConfig = {
@@ -125,26 +130,31 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     }
     
     var correctTime = function(num) {
-        if (num >= 8) {
+        if (num >= 8 && num < 20) {
             return num - 8;  
+        } else if (num >= 20) {
+            return num - 20;
         } else {
-            //fix this one to make it go back if > 24
             return num + 4;   
         }
     }
-    
-    //make this one add to calendar when page loads
+
     $scope.addToCalendar = function() {
-        $scope.events.forEach(function(data) {
-            $scope.newEvents.push({
-                title: data.title,
-                start: new Date(data.year, data.month - 1, data.day, data.hour, data.minute),
-                stick: true
+        $scope.events.$loaded().then(function(events) {
+            events.forEach(function(data) {
+                $scope.newEvents.push({
+                    title: data.title,
+                    start: new Date(data.year, data.month - 1, data.day, data.hour, data.minute),
+                    stick: true
+                });
             });
-        });       
+        });  
     }
+
+    $scope.addToCalendar();
     
     $scope.eventSources = [$scope.newEvents];
+    console.log($scope.eventSources)
 })
 
 // Content controller: define $scope.url as an image
