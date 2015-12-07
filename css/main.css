@@ -57,16 +57,29 @@ nav {
 
 .thumbnail {
 	border-style: none;
+	padding: 0;
 }
+
+.thumbnail > div:last-child {
+	background-color: white;
+	padding: 5px;
+	position: relative;
+}
+
+.thumbnail > div:last-child div:last-child {
+	postition:absolute;
+	bottom: 0px;
+}
+
 
 .header {	
 	padding-top: 20px;
-    background: url(../img/LanternBackground.jpg) no-repeat center center;
+    background: url(../img/LanternBackground.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 500px;
+    height: 580px;
 }
 
 .page-header small {
@@ -99,12 +112,12 @@ nav {
 }
 
 .postTitle {
-	font-family: Times;
+	font: Georgia;
 	color: rgb(63,63,63);
 }
 
 .postText {
-	font-family: 'Helvetica';
+	font: normal 13px/24px 'Helvetica';
 	color: rgb(63,63,63);
 }
 

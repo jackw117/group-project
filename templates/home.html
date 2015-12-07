@@ -20,8 +20,14 @@
 	    <div class="titleBorder"></div>
 	    <div class="row">
 	    	<div class="col-sm-4" ng-repeat="post in blogs">
-	    		<div class="thumbnail" ng-style="{background:'url({{post.image}}) no-repeat center center', 'min-height':'300px'}">
-	      			
+	    		<div class="thumbnail">
+	    			<div ng-style="{background:'url({{post.image}}) no-repeat center center', 'min-height':'300px'}"></div>
+	    			<div>
+	    				<h2 class="postTitle">{{post.title}}</h2>
+	    				<p>{{post.dates}}</p>
+	    				<p class="postText">{{post.preview_text}}</p>
+	    				<div class="text-center"><button type="button" class="btn btn-danger">Read More</button></div>
+	    			</div>
 	    		</div>
 	  		</div>
 		</div>
