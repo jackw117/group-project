@@ -13,34 +13,16 @@ body {
 
 .alternateBackground1 {
 	background: url(../img/BambooBackground.jpg) no-repeat center center;
+	background-size: cover;
 }
 
 .alternateBackground2 {
 	background-color: rgba(240, 237, 227, 0.9);
 }
 
-#headerButton {
-	padding: 20px 50px;
-}
-
-.footer {
-	padding-top: 20px;
-	background-color: rgb(53, 52, 52);
-	border-bottom: solid;
-	border-bottom-width: 30px;
-	border-bottom-color: rgb(45, 45, 45);
-	color: rgb(155, 154, 154);
-	font-size: 12px;
-	text-align: center;
-}
-
-.fa, #copyright {
-	color: rgb(236, 70, 51);
-}
-
-#copyright {
-	font-size: 14px;
-	font-weight: 200;
+.alternateBackground3 {
+	background: url(../img/MarchBackground.jpg) no-repeat center center;
+	background-size: cover;
 }
 
 nav {
@@ -55,22 +37,29 @@ nav {
 	margin: 0 !important;
 }
 
-.thumbnail {
-	border-style: none;
-	padding: 0;
+.title {
+	font-family: Oswald;
+	text-transform: uppercase;
 }
 
-.thumbnail > div:last-child {
-	background-color: white;
-	padding: 5px;
-	position: relative;
+.titleBorder {
+	height: 3px;
+	width: 60px;
+	background-color: rgb(236, 70, 51);
+	margin-top: 0;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.thumbnail > div:last-child div:last-child {
-	postition:absolute;
-	bottom: 0px;
+div .section {
+	padding: 50px 0;
+	border-top-color: #C0C0C0;
+	border-top-style: solid;
+	border-top-width: thin;
 }
 
+/*--------- Header section for Home ------------*/
 
 .header {	
 	padding-top: 20px;
@@ -96,19 +85,72 @@ nav {
 	color: white;
 }
 
-.title {
-	font-family: Oswald;
-	text-transform: uppercase;
+#headerButton {
+	padding: 20px 50px;
 }
 
-.titleBorder {
-	height: 3px;
-	width: 60px;
-	background-color: rgb(236, 70, 51);
-	margin-top: 0;
-	margin-bottom: 20px;
-	margin-left: auto;
-	margin-right: auto;
+/*------------------------------------------------*/
+
+/*------------ Events section for Home -----------*/
+
+.event-container {
+	border-left: solid thin #C0C0C0;
+}
+
+.event-date {
+	margin-right: 0.5em;
+}
+
+.day {
+	font-size: 2.8em;
+	margin-bottom: 0px;
+}
+
+div.right {
+	font-weight: bold;
+	font-size: 0.8em;
+}
+
+.month {
+	margin-bottom: 3px;
+}
+
+.event-name {
+	font-style: italic;
+	font-size: 01em;
+	font-weight: 100;
+	margin-bottom: 2px;
+}
+
+.event-address {
+	font-style: bold;
+	font-size: 0.8em;
+	font-weight: 100;
+}
+
+.event-description div {
+	display: inline-block;
+
+}
+
+/*------------------------------------------------*/
+
+/*------------ Blogs section for Home ------------*/
+
+.thumbnail {
+	border-style: none;
+	padding: 0;
+}
+
+.thumbnail > div:last-child, .whiteBackground {
+	background-color: white;
+	padding: 5px;
+	position: relative;
+}
+
+.thumbnail > div:last-child div:last-child {
+	postition:absolute;
+	bottom: 0px;
 }
 
 .postTitle {
@@ -121,14 +163,34 @@ nav {
 	color: rgb(63,63,63);
 }
 
-div .section {
-	padding: 50px 0;
-	border-top-color: #C0C0C0;
-	border-top-style: solid;
-	border-top-width: thin;
+/*-----------------------------------------------*/
+
+/*------------------- Footer --------------------*/
+
+.footer {
+	padding-top: 20px;
+	background-color: rgb(53, 52, 52);
+	border-bottom: solid;
+	border-bottom-width: 30px;
+	border-bottom-color: rgb(45, 45, 45);
+	color: rgb(155, 154, 154);
+	font-size: 12px;
+	text-align: center;
 }
 
-/* Styling for the "About" page */
+.fa, #copyright {
+	color: rgb(236, 70, 51);
+}
+
+#copyright {
+	font-size: 14px;
+	font-weight: 200;
+}
+
+/*------------------------------------------------*/
+
+/*------------ Styling for About page ------------*/
+
 #boardMembers {
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
@@ -148,7 +210,9 @@ div .section {
     padding-bottom: 1em;
 }
 
-/* Section handles screens wider that 768px */
+/*------------------------------------------------*/
+
+/*--- Section handles screens wider that 768px ---*/
 @media screen and (min-width: 768px) {
     
 	.leftFooter {
@@ -167,6 +231,35 @@ div .section {
         text-transform: uppercase;
         display: inline-block;
     }
+
+    /*------------ Events in Home -----------*/
+
+	.event-date {
+		margin-right: 1.4em;
+	}
+
+	.month {
+		margin-bottom: 8px;
+	}
+
+	.event-name {
+		font-size: 1.25em;
+		margin-bottom: 4px;
+	}
+
+	.event-address {
+		font-size: 1.17em;
+	}
+
+	.day {
+		font-size: 4.5em;
+	}
+
+	div.right {
+		font-size: 1.15em;
+	}
+
+    /*---------------------------------------*/
 
     /*---------- Navbar annimation ----------*/	
 	.sliding-u-l-r:after {
@@ -192,3 +285,4 @@ div .section {
 	}
 	/*----------------------------------------*/
 }
+/*------------------------------------------------*/
