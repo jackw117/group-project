@@ -61,6 +61,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.eventClick = false;
     
     $scope.newEvents = [];
+    $scope.upcomingEvents = [];
     
 //    $scope.signUp = function() {
 //        $scope.authObj.$createUser({
@@ -78,25 +79,23 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 //        })
 //    }
     
-    //switches PM to AM, and increases day by 1
-    //will fix later
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
+        console.log($scope.time)
         $scope.events.$add({
             title: $scope.title,
             description: $scope.description,
             year: Number(newDate.substr(0,4)),
             month: Number(newDate.substr(5,2)),
             day: Number(newDate.substr(8,2)),
-            hour: correctTime(Number(newDate.substr(11,2))),
-            minute: Number(newDate.substr(14,2))
+            hour: Number(newDate.substr(11,2)) - 8,
+            minute: newDate.substr(14,2)
         })
         .then(function() {
             $scope.date = "";
             $scope.title = "";
             $scope.description = "";
-            $scope.newEvents = [];
-            $scope.addToCalendar();
+            $scope.addOneEvent();
             $scope.eventClick = false;
         });    
     }
@@ -128,23 +127,25 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             $scope.userId = authData.uid;
         });
     }
-    
-    var correctTime = function(num) {
-        if (num >= 8 && num < 20) {
-            return num - 8;  
-        } else if (num >= 20) {
-            return num - 20;
-        } else {
-            return num + 4;   
-        }
+
+    $scope.addOneEvent = function() {
+        $scope.events.$loaded().then(function(events) {
+            var newEvent = events[events.length - 1];
+            $scope.newEvents.push({
+                title: newEvent.title,
+                start: new Date(newEvent.year, newEvent.month - 1, newEvent.day, newEvent.hour, Number(newEvent.minute)),
+                stick: true
+            });
+        });
     }
 
     $scope.addToCalendar = function() {
         $scope.events.$loaded().then(function(events) {
             events.forEach(function(data) {
+                console.log(data.hour)
                 $scope.newEvents.push({
                     title: data.title,
-                    start: new Date(data.year, data.month - 1, data.day, data.hour, data.minute),
+                    start: new Date(data.year, data.month - 1, data.day, data.hour, Number(data.minute)),
                     stick: true
                 });
             });
@@ -158,7 +159,9 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 // Content controller: define $scope.url as an image
-.controller('connectCtrl', function($scope){
-	
+.controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
+	var ref = new Firebase("https://oca.firebaseio.com/");
+    var membersRef = ref.child("members");
+    $scope.members = $firebaseArray(membersRef) 
 })
 
