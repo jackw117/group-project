@@ -78,29 +78,27 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 //        })
 //    }
     
+    //switches PM to AM, and increases day by 1
+    //will fix later
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
-        var year = Number(newDate.substr(0,4));
-        var month = Number(newDate.substr(5,2));
-        var day = Number(newDate.substr(8,2));
-        var hour = correctTime(Number(newDate.substr(11,2)));
-        var minute = Number(newDate.substr(14,2));
         $scope.events.$add({
             title: $scope.title,
             description: $scope.description,
-            year: year,
-            month: month,
-            day: day,
-            hour: hour,
-            minute: minute
+            year: Number(newDate.substr(0,4)),
+            month: Number(newDate.substr(5,2)),
+            day: Number(newDate.substr(8,2)),
+            hour: correctTime(Number(newDate.substr(11,2))),
+            minute: Number(newDate.substr(14,2))
         })
         .then(function() {
             $scope.date = "";
             $scope.title = "";
-        })
-        .then(function() {
-            $scope.eventClick = false; 
-        });     
+            $scope.description = "";
+            $scope.newEvents = [];
+            $scope.addToCalendar();
+            $scope.eventClick = false;
+        });    
     }
     
     $scope.uiConfig = {
@@ -140,17 +138,20 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             return num + 4;   
         }
     }
-    
-    //make this one add to calendar when page loads
+
     $scope.addToCalendar = function() {
-        $scope.events.forEach(function(data) {
-            $scope.newEvents.push({
-                title: data.title,
-                start: new Date(data.year, data.month - 1, data.day, data.hour, data.minute),
-                stick: true
+        $scope.events.$loaded().then(function(events) {
+            events.forEach(function(data) {
+                $scope.newEvents.push({
+                    title: data.title,
+                    start: new Date(data.year, data.month - 1, data.day, data.hour, data.minute),
+                    stick: true
+                });
             });
-        });       
+        });  
     }
+
+    $scope.addToCalendar();
     
     $scope.eventSources = [$scope.newEvents];
     console.log($scope.eventSources)

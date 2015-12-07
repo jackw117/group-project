@@ -29,7 +29,7 @@
 
     <div>
         <h1>Upcoming Events</h1>
-        <div ng-repeat="event in events">
+        <div ng-repeat="event in events | orderBy: 'day'">
             <h2>{{event.title}}</h2>
             <h3>{{event.month}}/{{event.day}} {{event.hour}}:{{event.minute}}</h3>
             <p>{{event.description}}</p>
