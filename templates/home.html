@@ -9,8 +9,27 @@
 
 <!-- Events -->
 <div class="container section">
-    <h1 class="title text-center">Events</h1>
+    <h1 class="title text-center">Upcoming Events</h1>
     <div class="titleBorder"></div>
+    <div class="container event-container">
+    	<div class="event-description">
+    		<div class="event-date">
+	    		<div><p class="day">06</p></div>
+		    	<div class="right">
+			    		<p class="month">Apr</p>
+			    		<p class="year">2016</p>
+		    	</div>
+	    	</div>
+    		<div>
+    			<p class="event-name">Annual Dinner 2016</p>
+    			<p class="event-address">901 MASSACHUSETTS AVE SW, WASHINGTON, DC</p>
+    		</div>
+    	</div>
+    	<div class="event-summary">
+    		<p>Join us April 6, 2016, at the Marriott Marquis for CDT’s Annual Dinner. The evening, fondly known as Tech Prom, will feature the most influential minds of today’s tech policy world, and will highlight the most pressing issues in the field. It will also provide many opportunities to mingle, connect, and exchange views with a variety of attendees from all sectors.
+</p>
+    	</div>
+    </div>
 </div>
 
 <!-- Blogs -->
@@ -20,8 +39,14 @@
 	    <div class="titleBorder"></div>
 	    <div class="row">
 	    	<div class="col-sm-4" ng-repeat="post in blogs">
-	    		<div class="thumbnail" ng-style="{background:'url({{post.image}}) no-repeat center center', 'min-height':'300px'}">
-	      			
+	    		<div class="thumbnail">
+	    			<div ng-style="{background:'url({{post.image}}) no-repeat center center', 'min-height':'300px'}"></div>
+	    			<div>
+	    				<h2 class="postTitle">{{post.title}}</h2>
+	    				<p>{{post.dates}}</p>
+	    				<p class="postText">{{post.preview_text}}</p>
+	    				<div class="text-center"><button type="button" class="btn btn-danger">Read More</button></div>
+	    			</div>
 	    		</div>
 	  		</div>
 		</div>
