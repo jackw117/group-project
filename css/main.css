@@ -19,6 +19,10 @@ body {
 	background-color: rgba(240, 237, 227, 0.9);
 }
 
+#headerButton {
+	padding: 20px 50px;
+}
+
 .footer {
 	padding-top: 20px;
 	background-color: rgb(53, 52, 52);
@@ -31,7 +35,7 @@ body {
 }
 
 .fa, #copyright {
-	color: rgb(236, 70, 51)
+	color: rgb(236, 70, 51);
 }
 
 #copyright {
@@ -41,6 +45,9 @@ body {
 
 nav {
 	background-color: rgb(29,29,29) !important;
+	border-bottom: solid !important;
+	border-bottom-width: 2px !important;
+	border-bottom-color: black !important;
 }
 
 .ui-view {
@@ -79,15 +86,30 @@ nav {
 .title {
 	font-family: Oswald;
 	text-transform: uppercase;
-	padding-bottom: 20px;
 }
 
-.contentText {
-	font-weight: 100;
+.titleBorder {
+	height: 3px;
+	width: 60px;
+	background-color: rgb(236, 70, 51);
+	margin-top: 0;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.postTitle {
+	font-family: Times;
+	color: rgb(63,63,63);
+}
+
+.postText {
+	font-family: 'Helvetica';
+	color: rgb(63,63,63);
 }
 
 div .section {
-	margin-top: 50px;
+	padding: 50px 0;
 	border-top-color: #C0C0C0;
 	border-top-style: solid;
 	border-top-width: thin;
@@ -147,7 +169,6 @@ div .section {
 		width: 100%;
 		background: rgb(236, 70, 51);
 	}
-	/*----------------------------------------*/
 
 	.navbar-inverse .navbar-nav>li>a:hover {
 		color: white;
@@ -156,4 +177,5 @@ div .section {
 	.navbar-inverse .navbar-nav>li>a:focus {
 		color: rgb(236, 70, 51);
 	}
+	/*----------------------------------------*/
 }

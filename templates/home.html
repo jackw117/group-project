@@ -4,25 +4,24 @@
 	<div class="page-header">
 		<h1>Organization of Chinese Americans<br>Greater Seattle Chapter <br><small>"Embracing the hopes and aspirations of Asian Pacific Americans"</small></h1>
 	</div>
-	<button ui-sref="connect" type="button" class="btn btn-danger">Get Involved</button>
+	<button id="headerButton" ui-sref="connect" type="button" class="btn btn-danger">Get Involved</button>
 </div>
+
+<!-- Events -->
 <div class="container section">
     <h1 class="title text-center">Events</h1>
+    <div class="titleBorder"></div>
 </div>
 
 <!-- Blogs -->
 <div class="alternateBackground1">
 	<div class="container section">
 	    <h1 class="title text-center">Featured Posts</h1>
+	    <div class="titleBorder"></div>
 	    <div class="row">
-	    	<div class="col-md-4" ng-repeat="post in blogs">
-	    		<div class="thumbnail">
-	      			<img src="{{post.image}}" alt="...">
-	      			<div class="caption">
-				        <h3>{{post.title}}</h3>
-				        <p class="contentText">{{post.preview_text}}</p>
-	      			</div>
-		      		<div class="text-center"><i class="fa fa-arrow-circle-right fa-3x"></i></div>
+	    	<div class="col-sm-4" ng-repeat="post in blogs">
+	    		<div class="thumbnail" ng-style="{background:'url({{post.image}}) no-repeat center center', 'min-height':'300px'}">
+	      			
 	    		</div>
 	  		</div>
 		</div>
@@ -33,5 +32,6 @@
 <div class="alternateBackground2">
 	<div class="container section">
 	    <h1 class="title text-center">Photos</h1>
+	    <div class="titleBorder"></div>
 	</div>
 </div>
