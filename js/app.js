@@ -62,22 +62,22 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     
     $scope.newEvents = [];
     $scope.upcomingEvents = [];
+    $scope.pastEvents = [];
     
-//    $scope.signUp = function() {
-//        $scope.authObj.$createUser({
-//            email: $scope.email,
-//            password: $scope.password
-//        })
-//        .then($scope.logIn())
-//        .then(function(authData) {
-//            $scope.userId = authData.uid;
-//            $scope.users[authData.uid] ={
-//                handle: $scope.email   
-//            }
-//            $scope.users.$save();
-//            
-//        })
-//    }
+   $scope.signUp = function() {
+       $scope.authObj.$createUser({
+           email: $scope.email,
+           password: $scope.password
+       })
+       .then($scope.logIn())
+       .then(function(authData) {
+           $scope.userId = authData.uid;
+           $scope.users[authData.uid] ={
+               handle: $scope.email   
+           }
+           $scope.users.$save(); 
+       });
+   }
     
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
@@ -94,7 +94,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             $scope.date = "";
             $scope.title = "";
             $scope.description = "";
-            $scope.addOneEvent();
+            $scope.addOneEvent($scope.events[$scope.events.length - 1]);
             $scope.eventClick = false;
         });    
     }
@@ -107,14 +107,11 @@ myApp.config(function($stateProvider, $urlRouterProvider){
           left: 'title month agendaWeek',
           center: '',
           right: 'today prev,next'
-        },
-        eventMouseover: $scope.hoverEvent
+        }
       }
     }
 
     $scope.logIn = function() {
-        $scope.signInClick = false;
-        $scope.loggedIn = true;
         return $scope.authObj.$authWithPassword({
             email: $scope.email,
             password: $scope.password
@@ -124,30 +121,42 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.signIn = function() {
         $scope.logIn().then(function(authData){
             $scope.userId = authData.uid;
+            $scope.loggedIn = true;
+            $scope.signInClick = false;
         });
     }
 
-    $scope.addOneEvent = function() {
-        $scope.events.$loaded().then(function(events) {
-            var newEvent = events[events.length - 1];
-            $scope.newEvents.push({
-                title: newEvent.title,
-                start: new Date(newEvent.year, newEvent.month - 1, newEvent.day, newEvent.hour, Number(newEvent.minute)),
-                stick: true
-            });
+    $scope.addOneEvent = function(event) {   
+        $scope.newEvents.push({
+            title: event.title,
+            start: new Date(event.year, event.month - 1, event.day, event.hour, Number(event.minute)),
+            stick: true,
+            description: event.description
         });
     }
 
     $scope.addToCalendar = function() {
         $scope.events.$loaded().then(function(events) {
             events.forEach(function(data) {
-                $scope.newEvents.push({
-                    title: data.title,
-                    start: new Date(data.year, data.month - 1, data.day, data.hour, Number(data.minute)),
-                    stick: true
-                });
+                $scope.getUpcomingEvents(data);
+                $scope.addOneEvent(data);
             });
         });  
+    }
+
+    $scope.getUpcomingEvents = function(data) {
+        var today = new Date().getTime();
+        var testDate = new Date(data.year, data.month - 1, data.day, data.hour, Number(data.minute));
+        if (today <= testDate.getTime()) {
+            $scope.upcomingEvents.push(data);
+        } else {
+            $scope.pastEvents.push(data);
+        }
+    }
+
+    $scope.remove = function(index) {
+        $scope.events.splice(index, 1);
+        $scope.addToCalendar();
     }
 
     $scope.addToCalendar();

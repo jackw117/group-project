@@ -22,6 +22,7 @@
             <label for="description">Describe the event:</label>
             <textarea id="description" ng-model="description" class="form-control" rows="10" required></textarea>
             <button class="btn btn-info" ng-disabled="eventForm.$invalid" ng-click="addEvent()">Submit</button>
+            <button class="btn btn-warning" ng-click="eventClick = false">Cancel</button>
         </form>
     </div>
 
@@ -29,10 +30,21 @@
 
     <div>
         <h1>Upcoming Events</h1>
-        <div ng-repeat="event in events | orderBy: 'day'">
+        <div ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day']">
             <h2>{{event.title}}</h2>
-            <h3>{{event.month}}/{{event.day}} {{event.hour}}:{{event.minute}}</h3>
+            <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}}</h3>
             <p>{{event.description}}</p>
+            <button class="btn btn-warning" ng-show="loggedIn" ng-click="remove($index)">Remove</button>
+        </div>
+    </div>
+
+    <div>
+        <h1>Past Events</h1>
+        <div ng-repeat="event in pastEvents | orderBy: ['-year', 'month', 'day']">
+            <h2>{{event.title}}</h2>
+            <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}}</h3>
+            <p>{{event.description}}</p>
+            <button class="btn btn-warning" ng-show="loggedIn" ng-click="remove($index)">Remove</button>
         </div>
     </div>
 </div>
