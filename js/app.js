@@ -81,7 +81,6 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
-        console.log($scope.time)
         $scope.events.$add({
             title: $scope.title,
             description: $scope.description,
@@ -142,7 +141,6 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.addToCalendar = function() {
         $scope.events.$loaded().then(function(events) {
             events.forEach(function(data) {
-                console.log(data.hour)
                 $scope.newEvents.push({
                     title: data.title,
                     start: new Date(data.year, data.month - 1, data.day, data.hour, Number(data.minute)),
@@ -155,7 +153,6 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.addToCalendar();
     
     $scope.eventSources = [$scope.newEvents];
-    console.log($scope.eventSources)
 })
 
 // Content controller: define $scope.url as an image
