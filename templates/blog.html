@@ -1,0 +1,25 @@
+<div>
+	<div class="container-fluid section">
+	    <h1 class="title text-center">Blog</h1>
+	    <div class="titleBorder"></div>
+	 <div class="arrow-div">
+
+	 </div>
+     <div class="container event-container" ng-repeat="feed in feeds">
+    	<div class="blog-date">
+	    	<div>
+	    		<p class="day">{{feed.date.day}}</p>
+	    	</div>
+		    <div class="right">
+			    <p class="month">{{feed.date.month}}</p>
+			    <p class="year">{{feed.date.year}}</p>
+		    </div>
+    		<div>
+    			<p class="blog-title"><a class="blog-link" href="{{feed.link}}">{{feed.title}}</a></p>
+    		</div>
+    	</div>
+    	<div class="blog-summary">
+	    	<p>{{feed.contentSnippet}}</p>
+	    </div>
+	</div>
+</div>

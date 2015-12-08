@@ -18,6 +18,11 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 			templateUrl: 'templates/about.html',
 			controller: 'aboutCtrl'
 		})
+		.state('blog', {
+			url:'/blog',
+			templateUrl: 'templates/blog.html',
+			controller: 'blogCtrl'
+		})
 		.state('events', {
 			url: '/events',
 			templateUrl: 'templates/events.html',
@@ -38,15 +43,41 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 	});
 })
 
-// Content controller: define $scope.url as an image
 .controller('aboutCtrl', function($scope, $http){
 	// Gets data containing artwork information
 	$http.get('json/profiles.json').success(function(response){
-		$scope.profiles = response
+		$scope.profiles = response;
 	})
 })
 
-// Content controller: define $scope.url as an image
+.factory('FeedService', ['$http', function($http) {
+    return {
+        parseFeed: function(url) {
+            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+        }
+    }
+}])
+
+/* Uses Google API which is deprecated */
+.controller("blogCtrl", ['$scope', 'FeedService', function($scope, Feed) {
+    /* To use another feed jsut copy below example */
+    Feed.parseFeed('http://ocaseattle.org/feed').then(function(res) {
+        $scope.feeds = res.data.responseData.feed.entries;
+        $scope.feeds = $scope.feeds.map(function(obj) {
+            
+            var rObj = obj;
+            var ref = obj.publishedDate.split(" ");
+            rObj['date'] = { 
+                'month': ref[2],
+                'day': ref[1],
+                'year': ref[3],
+            };
+            return rObj;
+        })
+        console.log($scope.feeds)
+    });
+}])
+
 .controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject, $compile, uiCalendarConfig){
 	var ref = new Firebase("https://oca.firebaseio.com/");
 	var usersRef = ref.child("users");
@@ -158,7 +189,6 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     console.log($scope.eventSources)
 })
 
-// Content controller: define $scope.url as an image
 .controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
 	var ref = new Firebase("https://oca.firebaseio.com/");
     var membersRef = ref.child("members");

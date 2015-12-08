@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Muli);
 @import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
 
 body {
 	font-family: 'Open Sans', sans-serif;
@@ -52,7 +53,7 @@ nav {
 	margin-right: auto;
 }
 
-div .section {
+.section {
 	padding: 50px 0;
 	border-top-color: #C0C0C0;
 	border-top-style: solid;
@@ -95,6 +96,7 @@ div .section {
 
 .event-container {
 	border-left: solid thin #C0C0C0;
+	margin: 60px 0;
 }
 
 .event-date {
@@ -116,6 +118,7 @@ div.right {
 }
 
 .event-name {
+	font-family: 'Raleway';
 	font-style: italic;
 	font-size: 01em;
 	font-weight: 100;
@@ -123,6 +126,7 @@ div.right {
 }
 
 .event-address {
+	font-family: 'Raleway';
 	font-style: bold;
 	font-size: 0.8em;
 	font-weight: 100;
@@ -142,10 +146,11 @@ div.right {
 	padding: 0;
 }
 
-.thumbnail > div:last-child, .whiteBackground {
-	background-color: white;
+.thumbnail > div:last-child {
+	background-color: rgba(240, 240, 240, 0.1);
 	padding: 5px;
 	position: relative;
+	border: solid thin rgb(232, 232, 232);
 }
 
 .thumbnail > div:last-child div:last-child {
@@ -154,8 +159,9 @@ div.right {
 }
 
 .postTitle {
-	font: Georgia;
+	font-family: 'Raleway';
 	color: rgb(63,63,63);
+	font-weight: 500;
 }
 
 .postText {
@@ -187,6 +193,16 @@ div.right {
 	font-weight: 200;
 }
 
+.rightFooter > a:link, .rightFooter > a:visited, a.blog-link:link, a.blog-link:visited {
+	color: rgb(155, 154, 154);
+	text-decoration: none;
+}
+
+.rightFooter > a:hover, .rightFooter > a:active, a.blog-link:hover, a.blog-link:active  {
+	color: rgb(236, 70, 51);
+	text-decoration: none;
+}
+
 /*------------------------------------------------*/
 
 /*------------ Styling for About page ------------*/
@@ -208,6 +224,55 @@ div.right {
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 1em;
+}
+
+/*------------------------------------------------*/
+
+/*------------ Styling for Blog page ------------*/
+
+.blog-title {
+	font-family: 'Raleway';
+	font-style: italic;
+	font-size: 3em;
+	font-weight: 100;
+	margin-bottom: 2px;
+}
+
+.blog-date > div {
+	display: inline-block;
+}
+
+.blog-date, .blog-summary{
+	display: block;
+}
+
+.arrow-div {
+	position: relative;
+	background: #EC4633;
+	border: 1px solid #EC4633;
+}
+.arrow-div:after, .arrow-div:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow-div:after {
+	border-color: rgba(236, 70, 51, 0);
+	border-bottom-color: #EC4633;
+	border-width: 10px;
+	margin-left: -10px;
+}
+.arrow-div:before {
+	border-color: rgba(207, 61, 45, 0);
+	border-bottom-color: #EC4633;
+	border-width: 13px;
+	margin-left: -13px;
 }
 
 /*------------------------------------------------*/
