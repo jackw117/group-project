@@ -299,7 +299,6 @@ gallery.init();
         });    
     }
     
-    //check to make sure this works
     $scope.checkMember = function() {
         $scope.emailInUse = false;
         console.log("here")
