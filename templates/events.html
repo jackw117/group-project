@@ -78,8 +78,10 @@
     </div>
 
     <div ng-show="loggedIn">
+        <div class="container section">
         <h1 class="title text-center">Past Events</h1>
         <div class="titleBorder"></div>
+
         <div class="container event-container" ng-repeat="event in pastEvents | orderBy: ['year', 'month', 'day']">
             <div class="event-description">
                 <div class="event-date">
@@ -98,6 +100,7 @@
                 <p>{{event.description}}</p>
             </div>
             <button class="btn btn-warning" ng-show="loggedIn" ng-click="removePast($index, event)">Remove</button>
+        </div>
         </div>
     </div>
 </div>

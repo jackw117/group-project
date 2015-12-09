@@ -60,49 +60,6 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         $('.bxslider').bxSlider();
     })
     
-//    var openPhotoSwipe = function() {
-//    var pswpElement = document.querySelectorAll('.pswp')[0];
-//
-//    // build items array
-//var items = [
-//    {
-//        src: 'https://farm6.staticflickr.com/5758/22993130203_44a69b2916_k_d.jpg',
-//        w: 1536,
-//        h: 2048,
-//        
-//        msrc:"https://farm6.staticflickr.com/5758/22993130203_b9c2e6c02a_z_d.jpg"
-//        
-//    },
-//    {
-//        src: 'https://placekitten.com/1200/900',
-//        w: 1200,
-//        h: 900
-//    },
-//    {
-//        src: 'https://farm6.staticflickr.com/5706/23537781331_735aff0918_k_d.jpg',
-//        w: 2048,
-//        h: 1536,
-//        
-//        msrc:"https://farm6.staticflickr.com/5706/23537781331_6f49390d09_z_d.jpg"
-//        
-//    }
-//];
-//    
-//    // define options (if needed)
-//    var options = {
-//             // history & focus options are disabled on CodePen        
-//        history: false,
-//        focus: false,
-//        
-//        showAnimationDuration: 0,
-//        hideAnimationDuration: 0
-//        
-//    };
-//    
-//    var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-//    gallery.init();
-//};
-//document.getElementById('btn').onclick = openPhotoSwipe  
 })
 
 .controller('aboutCtrl', function($scope, $http){
@@ -120,7 +77,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     }
 }])
 
-/* Uses Google API which is deprecated */
+/* Uses Google API Feed */
 .controller("blogCtrl", ['$scope', 'FeedService', function($scope, Feed) {
 
    $scope.feedLinks = ['http://ocaseattle.org/feed','http://feeds.feedburner.com/angryasianman/hMam?format=xml','http://www.iexaminer.org/feed/'];
@@ -161,7 +118,8 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.newEvents = [];
     $scope.upcomingEvents = [];
     $scope.pastEvents = [];
-    
+   
+   //Method to sign user up 
    $scope.signUp = function() {
        $scope.authObj.$createUser({
            email: $scope.adminMail,
@@ -170,6 +128,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
        $scope.adminClick = false;
    }
     
+    //Create and adds events to database
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
         $scope.events.$add({
@@ -193,6 +152,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         });    
     }
     
+    //returns correct time
     var correctTime = function(num) {
         if (num <= 8) {
             return num + 16;   
@@ -201,6 +161,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         }
     }
     
+    //returns correct day
     var correctDay = function(day, hour) {
         if (hour <= 8) {
             return day - 1;   
@@ -209,6 +170,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         }
     }
     
+    //makes date clickable in calendar to view more info about event
     $scope.clickEvent = function(date, jsEvent, view) {
         $scope.clicked = true;
         $scope.clickTitle = date.title;
@@ -221,6 +183,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         $scope.clickDay = date.day
     }
     
+    //initializes calendar object
     $scope.uiConfig = {
       calendar:{
         height: 450,
@@ -297,6 +260,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 
     $scope.addToCalendar();
     
+    //final source of events angular looks for
     $scope.eventSources = [$scope.newEvents];
     console.log($scope.upcomingEvents);
 })
