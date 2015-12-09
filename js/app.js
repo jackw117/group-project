@@ -36,6 +36,11 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 		.then(function(dat) {
 			$scope.blogs = dat.data;
 	});
+    
+    $(document).ready(function() {
+        $('.bxslider').bxSlider();
+    })
+
 })
 
 // Content controller: define $scope.url as an image
@@ -164,4 +169,3 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     var membersRef = ref.child("members");
     $scope.members = $firebaseArray(membersRef) 
 })
-
