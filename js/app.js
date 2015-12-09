@@ -36,16 +36,28 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 
-.controller('homeCtrl', function($scope, $http){
+<<<<<<< HEAD
+.controller('homeCtrl', function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject){
+    var ref = new Firebase("https://oca.firebaseio.com/");
+    var eventsRef = ref.child("events");
+    $scope.events = $firebaseArray(eventsRef);
+    $scope.authObj = $firebaseAuth(ref);
+    var authData = $scope.authObj.$getAuth();
+
 	$http.get('json/blogs.json')
 		.then(function(dat) {
 			$scope.blogs = dat.data;
 	});
     
-    $(document).ready(function() {
-$('.bxslider').bxSlider({
-
-});
+    $.getJSON( "../json/images.json", function (data) {
+        $.each( data, function(key, val) {
+            $scope.images.push(val["images"]);
+            //$('.bxslider').append('<li><img src=' + val["images"] + ' ></li>');
+        })
+    })
+    
+    $(document).ready(function () {
+        $('.bxslider').bxSlider();
     })
     
 //    var openPhotoSwipe = function() {
@@ -176,7 +188,7 @@ $('.bxslider').bxSlider({
             $scope.description = "";
             $scope.location = "";
             $scope.addOneEvent($scope.events[$scope.events.length - 1]);
-            $scope.getUpcomingEvents($scope.events[$scope.events.length - 1]);
+            $scope.getEvents($scope.events[$scope.events.length - 1]);
             $scope.eventClick = false;
         });    
     }
@@ -214,8 +226,8 @@ $('.bxslider').bxSlider({
         height: 450,
         editable: false,
         header:{
-          left: 'title month agendaWeek',
-          center: '',
+          left: 'month agendaWeek',
+          center: 'title',
           right: 'today prev,next'
         },
         eventClick: $scope.clickEvent
@@ -337,4 +349,5 @@ $('.bxslider').bxSlider({
             $scope.addMember();
         }
     }
+
 })
