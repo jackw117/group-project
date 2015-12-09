@@ -266,8 +266,29 @@ gallery.init();
 .controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
 	var ref = new Firebase("https://oca.firebaseio.com/");
     var membersRef = ref.child("members");
-    $scope.members = $firebaseArray(membersRef);
-    
-    
+    $scope.members = $firebaseArray(membersRef) 
+
+    $scope.addMember = function() {
+        var newMember = $scope.date.toISOString();
+        $scope.events.$add({
+            name: $scope.name,
+            year: Number(newDate.substr(0,4)),
+            month: Number(newDate.substr(5,2)),
+            day: Number(newDate.substr(8,2)),
+            address: $scope.address,
+            zip: $scope.zip,
+            city: $scope.city,
+            state: $scope.state,
+            email: $scope.email,
+            phone: $scope.phone,
+        })
+        .then(function() {
+            $scope.date = "";
+            $scope.name = "";
+            $scope.description = "";
+            $scope.addOneEvent($scope.events[$scope.events.length - 1]);
+            $scope.eventClick = false;
+        });    
+    }
 })
 

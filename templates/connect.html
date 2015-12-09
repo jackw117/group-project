@@ -1,4 +1,5 @@
 <div ng-controller="connectCtrl">
+	<!-- Display general contact information -->
 	<div class="alternateBackground3">
 		<div class="container section">
 			<h1 class="title text-center">Contact</h1>
@@ -15,6 +16,8 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Display reasons on why to join -->
 	<div class="container section">
 		<div class="container">
 			<h1 class="title text-center">Why Join?</h1>
@@ -29,8 +32,42 @@
 			</ul>
 		</div>
 	</div>
+
+	<!-- Displays information regarding sign-up -->
 	<div class="container section">
 		<h1 class="title text-center">Sign Up</h1>
 		<div class="titleBorder"></div>
+
+		<div id="memberSignUp">
+		    <form name="memberForm">
+		        <label for="name">Name:</label>
+		        <input id="name" class="form-control" ng-model="name" type="name" required>
+		        <label for="date">Date:</label>
+		        <input id="date" class="form-control" ng-model="date" type="date" required>
+		        <label for="address">Address:</label>
+		        <input id="address" class="form-control" ng-model="address" type="address" required>
+		        <label for="zip">Zip:</label>
+		        <input id="zip" class="form-control" ng-model="zip" type="zip" required>
+		        <label for="city">City:</label>
+		        <input id="city" class="form-control" ng-model="city" type="city" required>
+		        <label for="state">State:</label>
+		        <input id="state" class="form-control" ng-model="state" type="state" required>
+		        <label for="email">Email:</label>
+		        <input id="email" class="form-control" ng-model="email" type="email" required>
+		        <label for="phone">Phone:</label>
+		        <input id="phone" class="form-control" ng-model="phone" type="phone" required>
+		        <button class="btn btn-primary" ng-click="addMember()" ng-disabled="memberForm.$invalid">Submit</button>
+		    </form>
+		</div>
+		<!--             name: $scope.name,
+            year: Number(newDate.substr(0,4)),
+            month: Number(newDate.substr(5,2)),
+            day: Number(newDate.substr(8,2)),
+            address: $scope.address,
+            zip: $scope.zip,
+            city: $scope.city,
+            state: $scope.state,
+            email: $scope.email,
+            phone: $scope.phone, -->
 	</div>
 </div>
