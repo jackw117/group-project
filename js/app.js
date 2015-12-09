@@ -41,6 +41,34 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 		.then(function(dat) {
 			$scope.blogs = dat.data;
 	});
+    
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+
+// build items array
+var items = [
+    {
+        src: 'https://farm6.staticflickr.com/5758/22993130203_1c7c3b9f65_o.jpg',
+        w: 3264,
+        h: 2448
+    },
+    {
+        src: 'https://placekitten.com/1200/900',
+        w: 1200,
+        h: 900
+    }
+];
+
+// define options (if needed)
+var options = {
+    // optionName: 'option value'
+    // for example:
+    index: 0 // start at first slide
+};
+
+// Initializes and opens PhotoSwipe
+var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+gallery.init();
+    
 })
 
 .controller('aboutCtrl', function($scope, $http){
@@ -239,8 +267,29 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 .controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
 	var ref = new Firebase("https://oca.firebaseio.com/");
     var membersRef = ref.child("members");
-    $scope.members = $firebaseArray(membersRef);
-    
-    
+    $scope.members = $firebaseArray(membersRef) 
+
+    $scope.addMember = function() {
+        var newMember = $scope.date.toISOString();
+        $scope.events.$add({
+            name: $scope.name,
+            year: Number(newDate.substr(0,4)),
+            month: Number(newDate.substr(5,2)),
+            day: Number(newDate.substr(8,2)),
+            address: $scope.address,
+            zip: $scope.zip,
+            city: $scope.city,
+            state: $scope.state,
+            email: $scope.email,
+            phone: $scope.phone,
+        })
+        .then(function() {
+            $scope.date = "";
+            $scope.name = "";
+            $scope.description = "";
+            $scope.addOneEvent($scope.events[$scope.events.length - 1]);
+            $scope.eventClick = false;
+        });    
+    }
 })
 
