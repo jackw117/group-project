@@ -36,6 +36,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 
+<<<<<<< HEAD
 .controller('homeCtrl', function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject){
     var ref = new Firebase("https://oca.firebaseio.com/");
     var eventsRef = ref.child("events");
@@ -43,12 +44,25 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.authObj = $firebaseAuth(ref);
     var authData = $scope.authObj.$getAuth();
 
+=======
+.controller('homeCtrl', function($scope, $http){
+    $scope.images = [];
+    
+>>>>>>> b7a3c3daf9694f6ded6ab1ea1ed872c670cf9aec
 	$http.get('json/blogs.json')
 		.then(function(dat) {
 			$scope.blogs = dat.data;
 	});
     
-    $(document).ready(function() {
+    
+    $.getJSON( "../json/images.json", function (data) {
+        $.each( data, function(key, val) {
+            $scope.images.push(val["images"]);
+            //$('.bxslider').append('<li><img src=' + val["images"] + ' ></li>');
+        })
+    })
+    
+    $(document).ready(function () {
         $('.bxslider').bxSlider();
     })
 })
@@ -297,4 +311,5 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             $scope.addMember();
         }
     }
+
 })
