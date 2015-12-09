@@ -1,5 +1,5 @@
 // Create app
-var myApp = angular.module('myApp', ['ui.router', 'firebase', 'ui.calendar', 'ngAnimate'])
+var myApp = angular.module('myApp', ['ui.router', 'firebase', 'ui.calendar'])
 
 // Configure app
 myApp.config(function($stateProvider, $urlRouterProvider){
