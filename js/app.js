@@ -43,6 +43,10 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.authObj = $firebaseAuth(ref);
     var authData = $scope.authObj.$getAuth();
      
+	$http.get('json/blogs.json')
+		.then(function(dat) {
+			$scope.blogs = dat.data;
+	});
     
     $(document).ready(function () {
         $('.bxslider').bxSlider();
