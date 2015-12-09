@@ -1,5 +1,5 @@
 // Create app
-var myApp = angular.module('myApp', ['ui.router', 'firebase', 'ui.calendar'])
+var myApp = angular.module('myApp', ['ui.router', 'firebase', 'ui.calendar', 'ngAnimate'])
 
 // Configure app
 myApp.config(function($stateProvider, $urlRouterProvider){
@@ -88,22 +88,25 @@ gallery.init();
 
 /* Uses Google API which is deprecated */
 .controller("blogCtrl", ['$scope', 'FeedService', function($scope, Feed) {
-    /* To use another feed jsut copy below example */
-    Feed.parseFeed('http://ocaseattle.org/feed').then(function(res) {
-        $scope.feeds = res.data.responseData.feed.entries;
-        $scope.feeds = $scope.feeds.map(function(obj) {
-            
-            var rObj = obj;
-            var ref = obj.publishedDate.split(" ");
-            rObj['date'] = { 
-                'month': ref[2],
-                'day': ref[1],
-                'year': ref[3],
-            };
-            return rObj;
-        })
-        console.log($scope.feeds)
-    });
+
+   $scope.feedLinks = ['http://ocaseattle.org/feed','http://feeds.feedburner.com/angryasianman/hMam?format=xml','http://www.iexaminer.org/feed/'];
+    
+    for (var i = 0; i < $scope.feedLinks.length; i++) {
+        Feed.parseFeed($scope.feedLinks[i]).then(function(res) {
+            $scope.feeds = res.data.responseData.feed.entries;
+            $scope.feeds = $scope.feeds.map(function(obj) {
+                //$('.blog-full').append(obj.content)
+                var rObj = obj;
+                var ref = obj.publishedDate.split(" ");
+                rObj['date'] = { 
+                    'month': ref[2],
+                    'day': ref[1],
+                    'year': ref[3],
+                };
+                return rObj;
+            })
+        });
+    };
 }])
 
 .controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject, $compile, uiCalendarConfig){
