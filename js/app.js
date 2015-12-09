@@ -90,6 +90,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.signInClick = false;
     $scope.loggedIn = false;
     $scope.eventClick = false;
+    $scope.showCalendar = true;
     
     $scope.newEvents = [];
     $scope.upcomingEvents = [];
@@ -117,17 +118,35 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             description: $scope.description,
             year: Number(newDate.substr(0,4)),
             month: Number(newDate.substr(5,2)),
-            day: Number(newDate.substr(8,2)),
-            hour: Number(newDate.substr(11,2)) - 8,
-            minute: newDate.substr(14,2)
+            day: correctDay(Number(newDate.substr(8,2)), Number(newDate.substr(11,2))),
+            hour: correctTime(Number(newDate.substr(11,2))),
+            minute: newDate.substr(14,2),
+            location: $scope.location
         })
         .then(function() {
             $scope.date = "";
             $scope.title = "";
             $scope.description = "";
             $scope.addOneEvent($scope.events[$scope.events.length - 1]);
+            $scope.getUpcomingEvents($scope.events[$scope.events.length - 1]);
             $scope.eventClick = false;
         });    
+    }
+    
+    var correctTime = function(num) {
+        if (num <= 8) {
+            return num + 16;   
+        } else {
+            return num - 8;   
+        }
+    }
+    
+    var correctDay = function(day, hour) {
+        if (hour <= 8) {
+            return day - 1;   
+        } else {
+            return day;   
+        }
     }
     
     $scope.uiConfig = {
@@ -185,14 +204,20 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         }
     }
 
-    $scope.remove = function(index) {
-        $scope.events.splice(index, 1);
-        $scope.addToCalendar();
+    $scope.removeUpcoming = function(index, data) {    
+        $scope.upcomingEvents.splice(index, 1);
+        $scope.events.$remove(data);
+    }
+    
+    $scope.removePast = function(index, data) {
+        $scope.pastEvents.splice(index, 1);
+        $scope.events.$remove(data);
     }
 
     $scope.addToCalendar();
     
     $scope.eventSources = [$scope.newEvents];
+    console.log($scope.upcomingEvents);
 })
 
 .controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){

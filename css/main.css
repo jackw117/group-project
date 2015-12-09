@@ -277,6 +277,24 @@ div.right {
 
 /*------------------------------------------------*/
 
+/*------------ Styling for Event page ------------*/
+
+#loginDiv {
+    margin-top: 2em;   
+}
+
+#loginDiv input {
+    margin-bottom: 1em;   
+}
+
+#loginDiv button {
+    margin-bottom: 1em;   
+}
+
+
+
+/*------------------------------------------------*/
+
 /*--- Section handles screens wider that 768px ---*/
 @media screen and (min-width: 768px) {
     
@@ -349,5 +367,9 @@ div.right {
 		color: rgb(236, 70, 51);
 	}
 	/*----------------------------------------*/
+    
+    #mobileShow {
+        display: none;   
+    }
 }
 /*------------------------------------------------*/
