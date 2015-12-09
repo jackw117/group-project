@@ -43,8 +43,54 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 	});
     
     $(document).ready(function() {
-        $('.bxslider').bxSlider();
+$('.bxslider').bxSlider({
+
+});
     })
+    
+//    var openPhotoSwipe = function() {
+//    var pswpElement = document.querySelectorAll('.pswp')[0];
+//
+//    // build items array
+//var items = [
+//    {
+//        src: 'https://farm6.staticflickr.com/5758/22993130203_44a69b2916_k_d.jpg',
+//        w: 1536,
+//        h: 2048,
+//        
+//        msrc:"https://farm6.staticflickr.com/5758/22993130203_b9c2e6c02a_z_d.jpg"
+//        
+//    },
+//    {
+//        src: 'https://placekitten.com/1200/900',
+//        w: 1200,
+//        h: 900
+//    },
+//    {
+//        src: 'https://farm6.staticflickr.com/5706/23537781331_735aff0918_k_d.jpg',
+//        w: 2048,
+//        h: 1536,
+//        
+//        msrc:"https://farm6.staticflickr.com/5706/23537781331_6f49390d09_z_d.jpg"
+//        
+//    }
+//];
+//    
+//    // define options (if needed)
+//    var options = {
+//             // history & focus options are disabled on CodePen        
+//        history: false,
+//        focus: false,
+//        
+//        showAnimationDuration: 0,
+//        hideAnimationDuration: 0
+//        
+//    };
+//    
+//    var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+//    gallery.init();
+//};
+//document.getElementById('btn').onclick = openPhotoSwipe  
 })
 
 .controller('aboutCtrl', function($scope, $http){
