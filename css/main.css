@@ -60,6 +60,10 @@ nav {
 	border-top-width: thin;
 }
 
+.submitMemberbutton {
+	margin-top: 10px;
+}
+
 /*--------- Header section for Home ------------*/
 
 .header {	

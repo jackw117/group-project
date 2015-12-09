@@ -36,7 +36,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 
-<<<<<<< HEAD
+
 .controller('homeCtrl', function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject){
     var ref = new Firebase("https://oca.firebaseio.com/");
     var eventsRef = ref.child("events");
@@ -44,11 +44,6 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.authObj = $firebaseAuth(ref);
     var authData = $scope.authObj.$getAuth();
 
-=======
-.controller('homeCtrl', function($scope, $http){
-    $scope.images = [];
-    
->>>>>>> b7a3c3daf9694f6ded6ab1ea1ed872c670cf9aec
 	$http.get('json/blogs.json')
 		.then(function(dat) {
 			$scope.blogs = dat.data;
