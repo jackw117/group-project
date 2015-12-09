@@ -230,49 +230,59 @@ div.right {
 
 /*------------ Styling for Blog page ------------*/
 
+#filter-text {
+	font-family: "Raleway";
+	font-weight: 200;
+	color: rgb(154, 155, 155);
+}
+
+button#filter-text {
+	background:none !important;
+    border:none !important; 
+    padding: 5px !important;
+    font: inherit;
+    /*border is optional*/
+    border-bottom:1px solid #444; 
+    cursor: pointer;
+}
+
+.blog-box {
+	border-left: solid thin #C0C0C0;
+	margin: 30px auto;
+	padding-left: 8px;
+}
+
 .blog-title {
 	font-family: 'Raleway';
 	font-style: italic;
-	font-size: 3em;
+	font-size: 2em;
 	font-weight: 100;
+	max-width: 70vw;
 	margin-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .blog-date > div {
 	display: inline-block;
 }
 
+.blog-date div:last-child {
+	position: relative;
+	top: 1em;
+}
+
 .blog-date, .blog-summary{
 	display: block;
 }
 
-.arrow-div {
-	position: relative;
-	background: #EC4633;
-	border: 1px solid #EC4633;
-}
-.arrow-div:after, .arrow-div:before {
-	bottom: 100%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-.arrow-div:after {
-	border-color: rgba(236, 70, 51, 0);
-	border-bottom-color: #EC4633;
-	border-width: 10px;
-	margin-left: -10px;
-}
-.arrow-div:before {
-	border-color: rgba(207, 61, 45, 0);
-	border-bottom-color: #EC4633;
-	border-width: 13px;
-	margin-left: -13px;
+.search-box {
+	width: 200px;
+	margin: 0 auto;
+	font-family: "Muli"
 }
 
 /*------------------------------------------------*/
@@ -327,6 +337,7 @@ div.right {
     /*---------------------------------------*/
 
     /*---------- Navbar annimation ----------*/	
+
 	.sliding-u-l-r:after {
 		content: '';
 		display: block;
@@ -348,6 +359,15 @@ div.right {
 	.navbar-inverse .navbar-nav>li>a:focus {
 		color: rgb(236, 70, 51);
 	}
+
+	/*----------------------------------------*/
+
+	/*---------------Blogs page---------------*/
+
+	.blog-title {
+		font-size: 3.2em;
+	}
+
 	/*----------------------------------------*/
 }
 /*------------------------------------------------*/
