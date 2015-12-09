@@ -43,7 +43,7 @@
 		    	<div class="row">
 		    		<div class="col-sm-9">
 			        	<label for="name">Name:</label>
-			        	<input id="name" class="form-control" ng-model="name" type="name" required>
+			        	<input id="name" class="form-control" ng-model="name" type="name" placeholder="First and last name" required>
 			    	</div>
 			    	<div class="col-sm-3">
 				        <label for="date">Date:</label>
@@ -53,36 +53,38 @@
 				<div class="row">
 					<div class="col-sm-9">
 				        <label for="address">Address:</label>
-				        <input id="address" class="form-control" ng-model="address" type="address" required>
+				        <input id="address" class="form-control" ng-model="address" type="address" placeholder="eg. 555 5th Ave S" required>
 				    </div>
 				    <div class="col-sm-3">
 				        <label for="zip">Zip:</label>
-				        <input id="zip" class="form-control" ng-model="zip" type="zip" required>
+				        <input id="zip" class="form-control" ng-model="zip" type="zip" placeholder="eg. 98105" required>
 				    </div>
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
 				        <label for="city">City:</label>
-				        <input id="city" class="form-control" ng-model="city" type="city" required>
+				        <input id="city" class="form-control" ng-model="city" type="city" placeholder="eg. Seattle" required>
 				    </div>
 				    <div class="col-sm-6">
 				        <label for="state">State:</label>
-				        <input id="state" class="form-control" ng-model="state" type="state" required>
+				        <input id="state" class="form-control" ng-model="state" type="state" placeholder="eg. Washington" required>
 				    </div>
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
 				        <label for="email">Email:</label>
-				        <input id="email" class="form-control" ng-model="email" type="email" required>
+				        <input id="email" class="form-control" ng-model="email" type="email" placeholder="eg. youremail@here.com" ng-class="{ 'has-error' : memberForm.email.$invalid }" required>
+				        <p ng-show="memberForm.email.$invalid" class="help-block">Please enter a valid email</p>
 				    </div>
 				    <div class="col-sm-6">
 				        <label for="phone">Phone:</label>
-				        <input id="phone" class="form-control" ng-model="phone" type="phone" required>
+				        <input id="phone" class="form-control" ng-model="phone" type="phone" placeholder="eg. 555-555-5555" maxlength="12" ng-minlength="9" required>
+				        <p ng-show="memberForm.phone.$error.minlength" class="help-block">Please enter valid phone number</p>
 				    </div>
 				</div>
 		        <button class="btn btn-primary" ng-click="checkMember()" ng-disabled="memberForm.$invalid">Submit</button>
+		        <p ng-show="emailInUse">It looks like you're already a member.</p>
 		    </form>
-            <p ng-show="emailInUse">It looks like you're already a member.</p>
 		</div>
 	</div>
 </div>

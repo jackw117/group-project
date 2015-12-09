@@ -301,4 +301,5 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             $scope.addMember();
         }
     }
+
 })
