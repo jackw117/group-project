@@ -36,25 +36,17 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 
-
 .controller('homeCtrl', function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject){
     var ref = new Firebase("https://oca.firebaseio.com/");
     var eventsRef = ref.child("events");
     $scope.events = $firebaseArray(eventsRef);
     $scope.authObj = $firebaseAuth(ref);
     var authData = $scope.authObj.$getAuth();
-
+     
 	$http.get('json/blogs.json')
 		.then(function(dat) {
 			$scope.blogs = dat.data;
 	});
-    
-    $.getJSON( "../json/images.json", function (data) {
-        $.each( data, function(key, val) {
-            $scope.images.push(val["images"]);
-            //$('.bxslider').append('<li><img src=' + val["images"] + ' ></li>');
-        })
-    })
     
     $(document).ready(function () {
         $('.bxslider').bxSlider();
