@@ -270,12 +270,13 @@ gallery.init();
     $scope.members = $firebaseArray(membersRef) 
 
     $scope.addMember = function() {
+        console.log("here")
         var newMember = $scope.date.toISOString();
-        $scope.events.$add({
+        $scope.members.$add({
             name: $scope.name,
-            year: Number(newDate.substr(0,4)),
-            month: Number(newDate.substr(5,2)),
-            day: Number(newDate.substr(8,2)),
+            year: Number(newMember.substr(0,4)),
+            month: Number(newMember.substr(5,2)),
+            day: Number(newMember.substr(8,2)),
             address: $scope.address,
             zip: $scope.zip,
             city: $scope.city,
@@ -286,9 +287,6 @@ gallery.init();
         .then(function() {
             $scope.date = "";
             $scope.name = "";
-            $scope.description = "";
-            $scope.addOneEvent($scope.events[$scope.events.length - 1]);
-            $scope.eventClick = false;
         });    
     }
 })
