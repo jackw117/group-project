@@ -121,6 +121,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             $scope.date = "";
             $scope.title = "";
             $scope.description = "";
+            $scope.location = "";
             $scope.addOneEvent($scope.events[$scope.events.length - 1]);
             $scope.getUpcomingEvents($scope.events[$scope.events.length - 1]);
             $scope.eventClick = false;
