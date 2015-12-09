@@ -42,30 +42,61 @@
     <button id="mobileShow" ng-click="showCalendar = !showCalendar">Show/Hide Calendar</button>
 
     <div ng-show="showCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
-    <p>Click an event on the calendar to learn more!</p>
+    <p class="text-center help-block">Click an event on the calendar to learn more!</p>
     
     <div ng-show="clicked">
         <h2>{{clickTitle}}</h2>
         <h3>{{clickMonth}}/{{clickDay}}/{{clickYear}} {{clickHour}}:{{clickMinute}} at {{clickLocation}}</h3>
         <p>{{clickDesc}}</p>
     </div>
+</div>
 
-    <div>
-        <h1>Upcoming Events</h1>
-        <div class="repeatDiv" ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day']">
-            <h2>{{event.title}}</h2>
-            <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}} at {{event.location}}</h3>
-            <p>{{event.description}}</p>
+<div class="alternateBackground2">
+    <div class="container section">
+        <h1 class="title text-center">Upcoming Events</h1>
+        <div class="titleBorder"></div>
+
+        <div class="container event-container" ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day']">
+            <div class="event-description">
+                <div class="event-date">
+                    <div><p class="day">{{event.day}}</p></div>
+                    <div class="right">
+                            <p class="month">{{event.month}}</p>
+                            <p class="year">{{event.year}}</p>
+                    </div>
+                </div>
+                <div>
+                    <p class="event-name">{{event.title}}</p>
+                    <p class="event-address">{{event.location}}</p>
+                </div>
+            </div>
+            <div class="event-summary">
+                <p>{{event.description}}</p>
+            </div>
             <button class="btn btn-warning" ng-show="loggedIn" ng-click="removeUpcoming($index, event)">Remove</button>
         </div>
     </div>
 
     <div ng-show="loggedIn">
-        <h1>Past Events</h1>
-        <div class="repeatDiv" ng-repeat="event in pastEvents | orderBy: ['-year', '-month', '-day']">
-            <h2>{{event.title}}</h2>
-            <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}} at {{event.location}}</h3>
-            <p>{{event.description}}</p>
+        <h1 class="title text-center">Past Events</h1>
+        <div class="titleBorder"></div>
+        <div class="container event-container" ng-repeat="event in pastEvents | orderBy: ['year', 'month', 'day']">
+            <div class="event-description">
+                <div class="event-date">
+                    <div><p class="day">{{event.day}}</p></div>
+                    <div class="right">
+                            <p class="month">{{event.month}}</p>
+                            <p class="year">{{event.year}}</p>
+                    </div>
+                </div>
+                <div>
+                    <p class="event-name">{{event.title}}</p>
+                    <p class="event-address">{{event.location}}</p>
+                </div>
+            </div>
+            <div class="event-summary">
+                <p>{{event.description}}</p>
+            </div>
             <button class="btn btn-warning" ng-show="loggedIn" ng-click="removePast($index, event)">Remove</button>
         </div>
     </div>

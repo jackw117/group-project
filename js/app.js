@@ -36,7 +36,13 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 })
 
 
-.controller('homeCtrl', function($scope, $http){
+.controller('homeCtrl', function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject){
+    var ref = new Firebase("https://oca.firebaseio.com/");
+    var eventsRef = ref.child("events");
+    $scope.events = $firebaseArray(eventsRef);
+    $scope.authObj = $firebaseAuth(ref);
+    var authData = $scope.authObj.$getAuth();
+
 	$http.get('json/blogs.json')
 		.then(function(dat) {
 			$scope.blogs = dat.data;
@@ -130,7 +136,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             $scope.description = "";
             $scope.location = "";
             $scope.addOneEvent($scope.events[$scope.events.length - 1]);
-            $scope.getUpcomingEvents($scope.events[$scope.events.length - 1]);
+            $scope.getEvents($scope.events[$scope.events.length - 1]);
             $scope.eventClick = false;
         });    
     }
@@ -168,8 +174,8 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         height: 450,
         editable: false,
         header:{
-          left: 'title month agendaWeek',
-          center: '',
+          left: 'month agendaWeek',
+          center: 'title',
           right: 'today prev,next'
         },
         eventClick: $scope.clickEvent
