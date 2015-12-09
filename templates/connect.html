@@ -58,7 +58,7 @@
 				    </div>
 				    <div class="col-sm-3">
 				        <label for="zip">Zipcode:</label>
-				        <input class="form-control" ng-model="zip" type="zip" placeholder="eg. 98105" required>
+				        <input class="form-control" ng-model="zip" type="zip" placeholder="eg. 98105" minlength="4" required>
 				    </div>
 				</div>
 				<div class="row">
@@ -74,17 +74,21 @@
 				<div class="row">
 					<div class="col-sm-6">
 				        <label for="email">Email:</label>
-				        <input class="form-control" ng-model="email" type="email" placeholder="eg. youremail@here.com" ng-class="{ 'has-error' : memberForm.email.$invalid }" required>
-				        <p ng-show="memberForm.email.$invalid" class="help-block">Please enter a valid email</p>
+				        <input id="invalidInput" class="form-control" ng-model="email" type="email" placeholder="eg. youremail@here.com" required>
 				    </div>
 				    <div class="col-sm-6">
 				        <label for="phone">Phone:</label>
 				        <input class="form-control" ng-model="phone" type="phone" placeholder="eg. 555-555-5555" maxlength="12" ng-minlength="9" required>
-				        <p ng-show="memberForm.phone.$error.minlength" class="help-block">Please enter valid phone number</p>
 				    </div>
 				</div>
 
+<<<<<<< HEAD
 				<button class="btn btn-danger submitMemberbutton" ng-click="checkMember()" ng-disabled="memberForm.$invalid">Submit</button>
+=======
+		        <button class="btn btn-danger" ng-click="checkMember()" ng-disabled="memberForm.$invalid">Submit</button>
+		        <p>{{message}}</p>
+		        <p ng-show="emailInUse">It looks like you're already a member.</p>
+>>>>>>> Finished
 		    </form>
 		</div>
 	</div>

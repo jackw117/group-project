@@ -303,6 +303,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.checkInUse = function() {
         if(!$scope.emailInUse) {
             $scope.addMember();
+            $scope.message = "You have successfully registered!"
         }
     }
 
