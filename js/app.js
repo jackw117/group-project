@@ -41,33 +41,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 		.then(function(dat) {
 			$scope.blogs = dat.data;
 	});
-    
-    var pswpElement = document.querySelectorAll('.pswp')[0];
 
-// build items array
-var items = [
-    {
-        src: 'https://farm6.staticflickr.com/5758/22993130203_1c7c3b9f65_o.jpg',
-        w: 3264,
-        h: 2448
-    },
-    {
-        src: 'https://placekitten.com/1200/900',
-        w: 1200,
-        h: 900
-    }
-];
-
-// define options (if needed)
-var options = {
-    // optionName: 'option value'
-    // for example:
-    index: 0 // start at first slide
-};
-
-// Initializes and opens PhotoSwipe
-var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-gallery.init();
     
 })
 
