@@ -296,17 +296,19 @@ gallery.init();
     //check to make sure this works
     $scope.checkMember = function() {
         $scope.emailInUse = false;
+        console.log("here")
         $scope.members.forEach(function(data) {
             if (data.email === $scope.email) {
                 $scope.emailInUse = true;
             }
         })
-        .then(function() {
-            if (!$scope.emailInUse) {
-                $scope.addMember();       
-            }    
-        });
-        
+        $scope.checkInUse();
+    }
+
+    $scope.checkInUse = function() {
+        if(!$scope.emailInUse) {
+            $scope.addMember();
+        }
     }
 })
 
