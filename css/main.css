@@ -12,6 +12,10 @@ body {
 	height: 60px;
 }
 
+#mobileShow {
+	margin: 10px auto !important;
+}
+
 .alternateBackground1 {
 	background: url(../img/BambooBackground.jpg) no-repeat center center;
 	background-size: cover;

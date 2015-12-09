@@ -39,10 +39,12 @@
         </form>
     </div>
     
-    <button id="mobileShow" ng-click="showCalendar = !showCalendar">Show/Hide Calendar</button>
+    <button id="mobileShow" class="btn btn-danger" ng-click="showCalendar = !showCalendar">Show/Hide Calendar</button>
 
-    <div ng-show="showCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
-    <p class="text-center help-block">Click an event on the calendar to learn more!</p>
+    <div ng-show="showCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources">
+
+    <p class="text-center help-block">Click an event on the calendar to learn more!</p> 
+    </div>
     
     <div ng-show="clicked">
         <h2>{{clickTitle}}</h2>
