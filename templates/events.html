@@ -1,12 +1,12 @@
-<div class="container">
-	<button ng-hide="signInClick || loggedIn" class="btn btn-link" ng-click="signInClick = true"><i class="fa fa-plus"></i></button>
-    
-    <div ng-show="signInClick">
-        <form name="logInForm">
+<div class="container"> 
+    <div id="loginDiv" >
+        <button ng-hide="signInClick || loggedIn" class="btn btn-link" ng-click="signInClick = true"><i class="fa fa-plus"></i></button>
+        <form name="logInForm" ng-show="signInClick">
             <label for="email">Email:</label>
             <input id="email" class="form-control" ng-model="email" type="email" required>
             <label for="password">Password:</label>
             <input id="password" class="form-control" ng-model="password" type="password" required>
+            <p ng-show="submitClick && !loggedIn">Sorry. You are not authorized to add events to this website.</p>
             <button class="btn btn-primary" ng-click="signIn()" ng-disabled="logInForm.$invalid">Submit</button>
             <button class="btn btn-warning" ng-click="signInClick = false">Cancel</button>
         </form>
@@ -14,37 +14,59 @@
     
     <div ng-show="loggedIn">
         <button class="btn btn-info" ng-hide="eventClick" ng-click="eventClick = true">Add Event</button>
+        <button class="btn btn-info" ng-hide="adminClick" ng-click="adminClick = true">Add a New Admin</button>
+        
         <form ng-show="eventClick" name="eventForm">
             <label for="title">Title:</label>
             <input class="form-control" id="title" type="text" ng-model="title" required>
             <label for="date">Date:</label>
             <input class="form-control" id="date" type="datetime-local" ng-model="date" required>
+            <label for="location">Location:</label>
+            <input class="form-control" id="location" type="text" ng-model="location" required>
             <label for="description">Describe the event:</label>
             <textarea id="description" ng-model="description" class="form-control" rows="10" required></textarea>
             <button class="btn btn-info" ng-disabled="eventForm.$invalid" ng-click="addEvent()">Submit</button>
             <button class="btn btn-warning" ng-click="eventClick = false">Cancel</button>
         </form>
+        
+        <form ng-show="adminClick" name="adminForm">
+            <label for="email">Email:</label>
+            <input id="email" class="form-control" ng-model="adminMail" type="email" required>
+            <label for="password">Password:</label>
+            <input id="password" class="form-control" ng-model="adminPass" type="password" required>
+            <button class="btn btn-primary" ng-click="signUp()" ng-disabled="adminForm.$invalid">Submit</button>
+            <button class="btn btn-warning" ng-click="adminClick = false">Cancel</button>
+        </form>
     </div>
+    
+    <button id="mobileShow" ng-click="showCalendar = !showCalendar">Show/Hide Calendar</button>
 
-    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+    <div ng-show="showCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+    <p>Click an event on the calendar to learn more!</p>
+    
+    <div ng-show="clicked">
+        <h2>{{clickTitle}}</h2>
+        <h3>{{clickMonth}}/{{clickDay}}/{{clickYear}} {{clickHour}}:{{clickMinute}} at {{clickLocation}}</h3>
+        <p>{{clickDesc}}</p>
+    </div>
 
     <div>
         <h1>Upcoming Events</h1>
-        <div ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day']">
+        <div class="repeatDiv" ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day']">
             <h2>{{event.title}}</h2>
-            <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}}</h3>
+            <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}} at {{event.location}}</h3>
             <p>{{event.description}}</p>
-            <button class="btn btn-warning" ng-show="loggedIn" ng-click="remove($index)">Remove</button>
+            <button class="btn btn-warning" ng-show="loggedIn" ng-click="removeUpcoming($index, event)">Remove</button>
         </div>
     </div>
 
-    <div>
+    <div ng-show="loggedIn">
         <h1>Past Events</h1>
-        <div ng-repeat="event in pastEvents | orderBy: ['-year', 'month', 'day']">
+        <div class="repeatDiv" ng-repeat="event in pastEvents | orderBy: ['-year', '-month', '-day']">
             <h2>{{event.title}}</h2>
-            <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}}</h3>
+            <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}} at {{event.location}}</h3>
             <p>{{event.description}}</p>
-            <button class="btn btn-warning" ng-show="loggedIn" ng-click="remove($index)">Remove</button>
+            <button class="btn btn-warning" ng-show="loggedIn" ng-click="removePast($index, event)">Remove</button>
         </div>
     </div>
 </div>

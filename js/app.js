@@ -108,9 +108,7 @@ gallery.init();
 
 .controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject, $compile, uiCalendarConfig){
 	var ref = new Firebase("https://oca.firebaseio.com/");
-	var usersRef = ref.child("users");
     var eventsRef = ref.child("events");
-	$scope.users = $firebaseObject(usersRef);
     $scope.events = $firebaseArray(eventsRef);
 	$scope.authObj = $firebaseAuth(ref);
 	var authData = $scope.authObj.$getAuth();
@@ -118,6 +116,10 @@ gallery.init();
     $scope.signInClick = false;
     $scope.loggedIn = false;
     $scope.eventClick = false;
+    $scope.showCalendar = true;
+    $scope.clicked = false;
+    $scope.submitClick = false;
+    $scope.adminClick = false;
     
     $scope.newEvents = [];
     $scope.upcomingEvents = [];
@@ -125,17 +127,10 @@ gallery.init();
     
    $scope.signUp = function() {
        $scope.authObj.$createUser({
-           email: $scope.email,
-           password: $scope.password
-       })
-       .then($scope.logIn())
-       .then(function(authData) {
-           $scope.userId = authData.uid;
-           $scope.users[authData.uid] ={
-               handle: $scope.email   
-           }
-           $scope.users.$save(); 
+           email: $scope.adminMail,
+           password: $scope.adminPass
        });
+       $scope.adminClick = false;
    }
     
     $scope.addEvent = function() {
@@ -145,17 +140,47 @@ gallery.init();
             description: $scope.description,
             year: Number(newDate.substr(0,4)),
             month: Number(newDate.substr(5,2)),
-            day: Number(newDate.substr(8,2)),
-            hour: Number(newDate.substr(11,2)) - 8,
-            minute: newDate.substr(14,2)
+            day: correctDay(Number(newDate.substr(8,2)), Number(newDate.substr(11,2))),
+            hour: correctTime(Number(newDate.substr(11,2))),
+            minute: newDate.substr(14,2),
+            location: $scope.location
         })
         .then(function() {
             $scope.date = "";
             $scope.title = "";
             $scope.description = "";
             $scope.addOneEvent($scope.events[$scope.events.length - 1]);
+            $scope.getUpcomingEvents($scope.events[$scope.events.length - 1]);
             $scope.eventClick = false;
         });    
+    }
+    
+    var correctTime = function(num) {
+        if (num <= 8) {
+            return num + 16;   
+        } else {
+            return num - 8;   
+        }
+    }
+    
+    var correctDay = function(day, hour) {
+        if (hour <= 8) {
+            return day - 1;   
+        } else {
+            return day;   
+        }
+    }
+    
+    $scope.clickEvent = function(date, jsEvent, view) {
+        $scope.clicked = true;
+        $scope.clickTitle = date.title;
+        $scope.clickDesc = date.description;
+        $scope.clickLocation = date.location;
+        $scope.clickYear = date.year;
+        $scope.clickMonth = date.month;
+        $scope.clickHour = date.hour;
+        $scope.clickMinute = date.minute;
+        $scope.clickDay = date.day
     }
     
     $scope.uiConfig = {
@@ -166,7 +191,8 @@ gallery.init();
           left: 'title month agendaWeek',
           center: '',
           right: 'today prev,next'
-        }
+        },
+        eventClick: $scope.clickEvent
       }
     }
 
@@ -178,10 +204,12 @@ gallery.init();
     }
     
     $scope.signIn = function() {
+        $scope.submitClick = true;
         $scope.logIn().then(function(authData){
             $scope.userId = authData.uid;
             $scope.loggedIn = true;
             $scope.signInClick = false;
+            
         });
     }
 
@@ -190,7 +218,13 @@ gallery.init();
             title: event.title,
             start: new Date(event.year, event.month - 1, event.day, event.hour, Number(event.minute)),
             stick: true,
-            description: event.description
+            description: event.description,
+            location: event.location,
+            hour: event.hour,
+            minute: event.minute,
+            year: event.year,
+            month: event.month,
+            day: event.day
         });
     }
 
@@ -213,19 +247,27 @@ gallery.init();
         }
     }
 
-    $scope.remove = function(index) {
-        $scope.events.splice(index, 1);
-        $scope.addToCalendar();
+    $scope.removeUpcoming = function(index, data) {    
+        $scope.upcomingEvents.splice(index, 1);
+        $scope.events.$remove(data);
+    }
+    
+    $scope.removePast = function(index, data) {
+        $scope.pastEvents.splice(index, 1);
+        $scope.events.$remove(data);
     }
 
     $scope.addToCalendar();
     
     $scope.eventSources = [$scope.newEvents];
+    console.log($scope.upcomingEvents);
 })
 
 .controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
 	var ref = new Firebase("https://oca.firebaseio.com/");
     var membersRef = ref.child("members");
-    $scope.members = $firebaseArray(membersRef) 
+    $scope.members = $firebaseArray(membersRef);
+    
+    
 })
 
