@@ -80,9 +80,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 
 .controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject, $compile, uiCalendarConfig){
 	var ref = new Firebase("https://oca.firebaseio.com/");
-	var usersRef = ref.child("users");
     var eventsRef = ref.child("events");
-	$scope.users = $firebaseObject(usersRef);
     $scope.events = $firebaseArray(eventsRef);
 	$scope.authObj = $firebaseAuth(ref);
 	var authData = $scope.authObj.$getAuth();
@@ -91,6 +89,9 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.loggedIn = false;
     $scope.eventClick = false;
     $scope.showCalendar = true;
+    $scope.clicked = false;
+    $scope.submitClick = false;
+    $scope.adminClick = false;
     
     $scope.newEvents = [];
     $scope.upcomingEvents = [];
@@ -98,17 +99,10 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     
    $scope.signUp = function() {
        $scope.authObj.$createUser({
-           email: $scope.email,
-           password: $scope.password
-       })
-       .then($scope.logIn())
-       .then(function(authData) {
-           $scope.userId = authData.uid;
-           $scope.users[authData.uid] ={
-               handle: $scope.email   
-           }
-           $scope.users.$save(); 
+           email: $scope.adminMail,
+           password: $scope.adminPass
        });
+       $scope.adminClick = false;
    }
     
     $scope.addEvent = function() {
@@ -149,6 +143,18 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         }
     }
     
+    $scope.clickEvent = function(date, jsEvent, view) {
+        $scope.clicked = true;
+        $scope.clickTitle = date.title;
+        $scope.clickDesc = date.description;
+        $scope.clickLocation = date.location;
+        $scope.clickYear = date.year;
+        $scope.clickMonth = date.month;
+        $scope.clickHour = date.hour;
+        $scope.clickMinute = date.minute;
+        $scope.clickDay = date.day
+    }
+    
     $scope.uiConfig = {
       calendar:{
         height: 450,
@@ -157,7 +163,8 @@ myApp.config(function($stateProvider, $urlRouterProvider){
           left: 'title month agendaWeek',
           center: '',
           right: 'today prev,next'
-        }
+        },
+        eventClick: $scope.clickEvent
       }
     }
 
@@ -169,10 +176,12 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     }
     
     $scope.signIn = function() {
+        $scope.submitClick = true;
         $scope.logIn().then(function(authData){
             $scope.userId = authData.uid;
             $scope.loggedIn = true;
             $scope.signInClick = false;
+            
         });
     }
 
@@ -181,7 +190,13 @@ myApp.config(function($stateProvider, $urlRouterProvider){
             title: event.title,
             start: new Date(event.year, event.month - 1, event.day, event.hour, Number(event.minute)),
             stick: true,
-            description: event.description
+            description: event.description,
+            location: event.location,
+            hour: event.hour,
+            minute: event.minute,
+            year: event.year,
+            month: event.month,
+            day: event.day
         });
     }
 
@@ -223,6 +238,8 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 .controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
 	var ref = new Firebase("https://oca.firebaseio.com/");
     var membersRef = ref.child("members");
-    $scope.members = $firebaseArray(membersRef) 
+    $scope.members = $firebaseArray(membersRef);
+    
+    
 })
 

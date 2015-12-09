@@ -6,6 +6,7 @@
             <input id="email" class="form-control" ng-model="email" type="email" required>
             <label for="password">Password:</label>
             <input id="password" class="form-control" ng-model="password" type="password" required>
+            <p ng-show="submitClick && !loggedIn">Sorry. You are not authorized to add events to this website.</p>
             <button class="btn btn-primary" ng-click="signIn()" ng-disabled="logInForm.$invalid">Submit</button>
             <button class="btn btn-warning" ng-click="signInClick = false">Cancel</button>
         </form>
@@ -13,6 +14,8 @@
     
     <div ng-show="loggedIn">
         <button class="btn btn-info" ng-hide="eventClick" ng-click="eventClick = true">Add Event</button>
+        <button class="btn btn-info" ng-hide="adminClick" ng-click="adminClick = true">Add a New Admin</button>
+        
         <form ng-show="eventClick" name="eventForm">
             <label for="title">Title:</label>
             <input class="form-control" id="title" type="text" ng-model="title" required>
@@ -25,15 +28,31 @@
             <button class="btn btn-info" ng-disabled="eventForm.$invalid" ng-click="addEvent()">Submit</button>
             <button class="btn btn-warning" ng-click="eventClick = false">Cancel</button>
         </form>
+        
+        <form ng-show="adminClick" name="adminForm">
+            <label for="email">Email:</label>
+            <input id="email" class="form-control" ng-model="adminMail" type="email" required>
+            <label for="password">Password:</label>
+            <input id="password" class="form-control" ng-model="adminPass" type="password" required>
+            <button class="btn btn-primary" ng-click="signUp()" ng-disabled="adminForm.$invalid">Submit</button>
+            <button class="btn btn-warning" ng-click="adminClick = false">Cancel</button>
+        </form>
     </div>
     
     <button id="mobileShow" ng-click="showCalendar = !showCalendar">Show/Hide Calendar</button>
 
     <div ng-show="showCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+    <p>Click an event on the calendar to learn more!</p>
+    
+    <div ng-show="clicked">
+        <h2>{{clickTitle}}</h2>
+        <h3>{{clickMonth}}/{{clickDay}}/{{clickYear}} {{clickHour}}:{{clickMinute}} at {{clickLocation}}</h3>
+        <p>{{clickDesc}}</p>
+    </div>
 
     <div>
         <h1>Upcoming Events</h1>
-        <div ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day']">
+        <div class="repeatDiv" ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day']">
             <h2>{{event.title}}</h2>
             <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}} at {{event.location}}</h3>
             <p>{{event.description}}</p>
@@ -41,9 +60,9 @@
         </div>
     </div>
 
-    <div>
+    <div ng-show="loggedIn">
         <h1>Past Events</h1>
-        <div ng-repeat="event in pastEvents | orderBy: ['-year', '-month', '-day']">
+        <div class="repeatDiv" ng-repeat="event in pastEvents | orderBy: ['-year', '-month', '-day']">
             <h2>{{event.title}}</h2>
             <h3>{{event.month}}/{{event.day}}/{{event.year}} {{event.hour}}:{{event.minute}} at {{event.location}}</h3>
             <p>{{event.description}}</p>
