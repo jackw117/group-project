@@ -236,13 +236,18 @@ myApp.config(function($stateProvider, $urlRouterProvider){
         }
     }
 
+    $scope.remove = function(data) {
+        $scope.events.$remove(data);
+    }
+
     $scope.removeUpcoming = function(index, data) {    
         $scope.upcomingEvents.splice(index, 1);
         $scope.events.$remove(data);
     }
     
     $scope.removePast = function(index, data) {
-        $scope.pastEvents.splice(index, 1);
+        var newIndex = $scope.pastEvents.length - 1 - index
+        $scope.pastEvents.splice(newIndex, 1);
         $scope.events.$remove(data);
     }
 
