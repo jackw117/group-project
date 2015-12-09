@@ -56,8 +56,9 @@
 		        <input id="email" class="form-control" ng-model="email" type="email" required>
 		        <label for="phone">Phone:</label>
 		        <input id="phone" class="form-control" ng-model="phone" type="phone" required>
-		        <button class="btn btn-primary" ng-click="addMember()" ng-disabled="memberForm.$invalid">Submit</button>
+		        <button class="btn btn-primary" ng-click="checkMember()" ng-disabled="memberForm.$invalid">Submit</button>
 		    </form>
+            <p ng-show="emailInUse">It looks like you're already a member.</p>
 		</div>
 		<!--             name: $scope.name,
             year: Number(newDate.substr(0,4)),

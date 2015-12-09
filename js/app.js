@@ -267,7 +267,7 @@ gallery.init();
 .controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
 	var ref = new Firebase("https://oca.firebaseio.com/");
     var membersRef = ref.child("members");
-    $scope.members = $firebaseArray(membersRef) 
+    $scope.members = $firebaseArray(membersRef); 
 
     $scope.addMember = function() {
         console.log("here")
@@ -282,12 +282,28 @@ gallery.init();
             city: $scope.city,
             state: $scope.state,
             email: $scope.email,
-            phone: $scope.phone,
+            phone: $scope.phone
         })
         .then(function() {
             $scope.date = "";
             $scope.name = "";
         });    
+    }
+    
+    //check to make sure this works
+    $scope.checkMember = function() {
+        $scope.emailInUse = false;
+        $scope.members.forEach(function(data) {
+            if (data.email === $scope.email) {
+                $scope.emailInUse = true;
+            }
+        })
+        .then(function() {
+            if (!$scope.emailInUse) {
+                $scope.addMember();       
+            }    
+        });
+        
     }
 })
 
