@@ -37,12 +37,22 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 
 
 .controller('homeCtrl', function($scope, $http){
+    $scope.images = [];
+    
 	$http.get('json/blogs.json')
 		.then(function(dat) {
 			$scope.blogs = dat.data;
 	});
     
-    $(document).ready(function() {
+    
+    $.getJSON( "../json/images.json", function (data) {
+        $.each( data, function(key, val) {
+            $scope.images.push(val["images"]);
+            //$('.bxslider').append('<li><img src=' + val["images"] + ' ></li>');
+        })
+    })
+    
+    $(document).ready(function () {
         $('.bxslider').bxSlider();
     })
 })
