@@ -18,6 +18,11 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 			templateUrl: 'templates/about.html',
 			controller: 'aboutCtrl'
 		})
+		.state('blog', {
+			url:'/blog',
+			templateUrl: 'templates/blog.html',
+			controller: 'blogCtrl'
+		})
 		.state('events', {
 			url: '/events',
 			templateUrl: 'templates/events.html',
@@ -40,23 +45,49 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $(document).ready(function() {
         $('.bxslider').bxSlider();
     })
-
 })
 
-// Content controller: define $scope.url as an image
 .controller('aboutCtrl', function($scope, $http){
 	// Gets data containing artwork information
 	$http.get('json/profiles.json').success(function(response){
-		$scope.profiles = response
+		$scope.profiles = response;
 	})
 })
 
-// Content controller: define $scope.url as an image
+.factory('FeedService', ['$http', function($http) {
+    return {
+        parseFeed: function(url) {
+            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+        }
+    }
+}])
+
+/* Uses Google API which is deprecated */
+.controller("blogCtrl", ['$scope', 'FeedService', function($scope, Feed) {
+
+   $scope.feedLinks = ['http://ocaseattle.org/feed','http://feeds.feedburner.com/angryasianman/hMam?format=xml','http://www.iexaminer.org/feed/'];
+    
+    for (var i = 0; i < $scope.feedLinks.length; i++) {
+        Feed.parseFeed($scope.feedLinks[i]).then(function(res) {
+            $scope.feeds = res.data.responseData.feed.entries;
+            $scope.feeds = $scope.feeds.map(function(obj) {
+                //$('.blog-full').append(obj.content)
+                var rObj = obj;
+                var ref = obj.publishedDate.split(" ");
+                rObj['date'] = { 
+                    'month': ref[2],
+                    'day': ref[1],
+                    'year': ref[3],
+                };
+                return rObj;
+            })
+        });
+    };
+}])
+
 .controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject, $compile, uiCalendarConfig){
 	var ref = new Firebase("https://oca.firebaseio.com/");
-	var usersRef = ref.child("users");
     var eventsRef = ref.child("events");
-	$scope.users = $firebaseObject(usersRef);
     $scope.events = $firebaseArray(eventsRef);
 	$scope.authObj = $firebaseAuth(ref);
 	var authData = $scope.authObj.$getAuth();
@@ -64,45 +95,72 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     $scope.signInClick = false;
     $scope.loggedIn = false;
     $scope.eventClick = false;
+    $scope.showCalendar = true;
+    $scope.clicked = false;
+    $scope.submitClick = false;
+    $scope.adminClick = false;
     
     $scope.newEvents = [];
     $scope.upcomingEvents = [];
+    $scope.pastEvents = [];
     
-//    $scope.signUp = function() {
-//        $scope.authObj.$createUser({
-//            email: $scope.email,
-//            password: $scope.password
-//        })
-//        .then($scope.logIn())
-//        .then(function(authData) {
-//            $scope.userId = authData.uid;
-//            $scope.users[authData.uid] ={
-//                handle: $scope.email   
-//            }
-//            $scope.users.$save();
-//            
-//        })
-//    }
+   $scope.signUp = function() {
+       $scope.authObj.$createUser({
+           email: $scope.adminMail,
+           password: $scope.adminPass
+       });
+       $scope.adminClick = false;
+   }
     
     $scope.addEvent = function() {
         var newDate = $scope.date.toISOString();
-        console.log($scope.time)
         $scope.events.$add({
             title: $scope.title,
             description: $scope.description,
             year: Number(newDate.substr(0,4)),
             month: Number(newDate.substr(5,2)),
-            day: Number(newDate.substr(8,2)),
-            hour: Number(newDate.substr(11,2)) - 8,
-            minute: newDate.substr(14,2)
+            day: correctDay(Number(newDate.substr(8,2)), Number(newDate.substr(11,2))),
+            hour: correctTime(Number(newDate.substr(11,2))),
+            minute: newDate.substr(14,2),
+            location: $scope.location
         })
         .then(function() {
             $scope.date = "";
             $scope.title = "";
             $scope.description = "";
-            $scope.addOneEvent();
+            $scope.location = "";
+            $scope.addOneEvent($scope.events[$scope.events.length - 1]);
+            $scope.getUpcomingEvents($scope.events[$scope.events.length - 1]);
             $scope.eventClick = false;
         });    
+    }
+    
+    var correctTime = function(num) {
+        if (num <= 8) {
+            return num + 16;   
+        } else {
+            return num - 8;   
+        }
+    }
+    
+    var correctDay = function(day, hour) {
+        if (hour <= 8) {
+            return day - 1;   
+        } else {
+            return day;   
+        }
+    }
+    
+    $scope.clickEvent = function(date, jsEvent, view) {
+        $scope.clicked = true;
+        $scope.clickTitle = date.title;
+        $scope.clickDesc = date.description;
+        $scope.clickLocation = date.location;
+        $scope.clickYear = date.year;
+        $scope.clickMonth = date.month;
+        $scope.clickHour = date.hour;
+        $scope.clickMinute = date.minute;
+        $scope.clickDay = date.day
     }
     
     $scope.uiConfig = {
@@ -114,13 +172,11 @@ myApp.config(function($stateProvider, $urlRouterProvider){
           center: '',
           right: 'today prev,next'
         },
-        eventMouseover: $scope.hoverEvent
+        eventClick: $scope.clickEvent
       }
     }
 
     $scope.logIn = function() {
-        $scope.signInClick = false;
-        $scope.loggedIn = true;
         return $scope.authObj.$authWithPassword({
             email: $scope.email,
             password: $scope.password
@@ -128,44 +184,111 @@ myApp.config(function($stateProvider, $urlRouterProvider){
     }
     
     $scope.signIn = function() {
+        $scope.submitClick = true;
         $scope.logIn().then(function(authData){
             $scope.userId = authData.uid;
+            $scope.loggedIn = true;
+            $scope.signInClick = false;
+            
         });
     }
 
-    $scope.addOneEvent = function() {
-        $scope.events.$loaded().then(function(events) {
-            var newEvent = events[events.length - 1];
-            $scope.newEvents.push({
-                title: newEvent.title,
-                start: new Date(newEvent.year, newEvent.month - 1, newEvent.day, newEvent.hour, Number(newEvent.minute)),
-                stick: true
-            });
+    $scope.addOneEvent = function(event) {   
+        $scope.newEvents.push({
+            title: event.title,
+            start: new Date(event.year, event.month - 1, event.day, event.hour, Number(event.minute)),
+            stick: true,
+            description: event.description,
+            location: event.location,
+            hour: event.hour,
+            minute: event.minute,
+            year: event.year,
+            month: event.month,
+            day: event.day
         });
     }
 
     $scope.addToCalendar = function() {
         $scope.events.$loaded().then(function(events) {
             events.forEach(function(data) {
-                console.log(data.hour)
-                $scope.newEvents.push({
-                    title: data.title,
-                    start: new Date(data.year, data.month - 1, data.day, data.hour, Number(data.minute)),
-                    stick: true
-                });
+                $scope.getUpcomingEvents(data);
+                $scope.addOneEvent(data);
             });
         });  
+    }
+
+    $scope.getUpcomingEvents = function(data) {
+        var today = new Date().getTime();
+        var testDate = new Date(data.year, data.month - 1, data.day, data.hour, Number(data.minute));
+        if (today <= testDate.getTime()) {
+            $scope.upcomingEvents.push(data);
+        } else {
+            $scope.pastEvents.push(data);
+        }
+    }
+
+    $scope.removeUpcoming = function(index, data) {    
+        $scope.upcomingEvents.splice(index, 1);
+        $scope.events.$remove(data);
+    }
+    
+    $scope.removePast = function(index, data) {
+        $scope.pastEvents.splice(index, 1);
+        $scope.events.$remove(data);
     }
 
     $scope.addToCalendar();
     
     $scope.eventSources = [$scope.newEvents];
-    console.log($scope.eventSources)
+    console.log($scope.upcomingEvents);
 })
 
-// Content controller: define $scope.url as an image
 .controller('connectCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject){
 	var ref = new Firebase("https://oca.firebaseio.com/");
     var membersRef = ref.child("members");
-    $scope.members = $firebaseArray(membersRef) 
+    $scope.members = $firebaseArray(membersRef); 
+
+    $scope.addMember = function() {
+        console.log("here")
+        var newMember = $scope.date.toISOString();
+        $scope.members.$add({
+            name: $scope.name,
+            year: Number(newMember.substr(0,4)),
+            month: Number(newMember.substr(5,2)),
+            day: Number(newMember.substr(8,2)),
+            address: $scope.address,
+            zip: $scope.zip,
+            city: $scope.city,
+            state: $scope.state,
+            email: $scope.email,
+            phone: $scope.phone
+        })
+        .then(function() {
+            $scope.name = "";
+            $scope.date = "";
+            $scope.address = "";
+            $scope.zip = "";
+            $scope.city = "";
+            $scope.state = "";
+            $scope.email = "";
+            $scope.phone = "";
+        });    
+    }
+    
+    $scope.checkMember = function() {
+        $scope.emailInUse = false;
+        console.log("here")
+        $scope.members.forEach(function(data) {
+            if (data.email === $scope.email) {
+                $scope.emailInUse = true;
+            }
+        })
+        $scope.checkInUse();
+    }
+
+    $scope.checkInUse = function() {
+        if(!$scope.emailInUse) {
+            $scope.addMember();
+        }
+    }
 })

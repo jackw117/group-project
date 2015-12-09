@@ -1,0 +1,36 @@
+<div>
+	<div class="container-fluid section">
+	    <h1 class="title text-center">Blog</h1>
+	    <div class="titleBorder"></div>
+	<div class="text-center">
+	</div>
+	<div class="input-group search-box">
+    	<span class="input-group-btn">
+    		<button class="btn btn-default" type="button"><i class="fa fa-filter"></i></button>
+    	</span>
+    	<input type="text"  ng-model="search" class="form-control" placeholder="Search for...">
+    </div>
+
+    <div class="container" ng-repeat="feed in feeds | filter:search">
+    	<div class="blog-box">
+	    	<div class="blog-date">
+		    	<div>
+		    		<p class="day">{{feed.date.day}}</p>
+		    	</div>
+			    <div class="right">
+				    <p class="month">{{feed.date.month}}</p>
+				    <p class="year">{{feed.date.year}}</p>
+			    </div>
+	    		<div>
+	    			<p class="blog-title"><a class="blog-link" href="{{feed.link}}">{{feed.title}}</a></p>
+	    		</div>
+	    	</div>
+
+	    	<div class="blog-summary">
+	    		<p>{{feed.author}}</p>
+		    	<p>{{feed.contentSnippet}}</p>
+		    	<div class="blog-full container"></div>
+		    </div>
+		</div>
+	</div>
+</div>

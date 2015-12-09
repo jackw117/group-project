@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OCA Seattle</title>
-      
-    
+    <title>OCA Greater Seattle</title>
 
     <!-- Libraries -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
@@ -18,7 +16,7 @@
     <!-- jquery, moment, and angular have to get included before fullcalendar -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
     <script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
@@ -37,7 +35,8 @@
     <link href="css/main.css" rel="stylesheet" type = "text/css"/>
     
   </head>
-  <body>      
+  <body>
+      <!-- Navigation Bar -->
       <nav class="navbar-inverse navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
@@ -54,6 +53,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="sliding-u-l-r"><a ui-sref="home">Home</a></li>
               <li class="sliding-u-l-r"><a ui-sref="about">About</a></li>
+              <li class="sliding-u-l-r"><a ui-sref="blog">Blog</a></li>
               <li class="sliding-u-l-r"><a ui-sref="events">Events</a></li>
               <li class="sliding-u-l-r"><a ui-sref="connect">Connect</a></li>
             </ul>  
@@ -61,11 +61,13 @@
         </div>
       </nav>
 
+      <!-- Display different pages here -->
       <div class="container-fluid ui-view">
-        <!-- This is where your content will display -->
+        
         <div ui-view></div>
       </div>
 
+      <!-- Footer -->
       <div class="footer">
         <div class="container-fluid">
           <div class="row">
@@ -80,7 +82,7 @@
               </span>
             </div>
             <div class="col-sm-5 rightFooter">
-                Contact | RSS
+                <a ui-sref="connect">Contact</a> | <a href="http://ocaseattle.org/feed/">RSS</a>
             </div>
           </div>
         </div>
