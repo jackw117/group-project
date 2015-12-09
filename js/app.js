@@ -288,12 +288,17 @@ gallery.init();
             phone: $scope.phone
         })
         .then(function() {
-            $scope.date = "";
             $scope.name = "";
+            $scope.date = "";
+            $scope.address = "";
+            $scope.zip = "";
+            $scope.city = "";
+            $scope.state = "";
+            $scope.email = "";
+            $scope.phone = "";
         });    
     }
     
-    //check to make sure this works
     $scope.checkMember = function() {
         $scope.emailInUse = false;
         console.log("here")
