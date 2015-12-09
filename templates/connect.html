@@ -1,32 +1,74 @@
 <div ng-controller="connectCtrl">
-	<div class="container section">
-		<h1 class="title text-center">Contact</h1>
-		<div class="titleBorder"></div>
-		<div class="col-xs-6 text-center">
-			<h3>OCA Greater Seattle</h3>
-			<h4><i class="fa fa-envelope fa-1x"></i> <a href="info@ocaseattle.org">   info@ocaseattle.org</a></p>
-			<h4><i class="fa fa-phone fa-1x"></i>   (206) 274-4656</p>
-		</div>
-		<div class="col-xs-6 text-center">
-			<h3>OCA National Office</h3>
-			<h4><i class="fa fa-envelope fa-1x"></i><a href="mailto:oca@ocanational.org">   oca@ocanational.org</a></p>
-			<h4><i class="fa fa-phone fa-1x"></i>   (202) 223-5500</p>
+	<!-- Display general contact information -->
+	<div class="alternateBackground3">
+		<div class="container section">
+			<h1 class="title text-center">Contact</h1>
+			<div class="titleBorder"></div>
+			<div class="col-md-6 text-center">
+				<h3>OCA Greater Seattle</h3>
+				<h4><i class="fa fa-envelope fa-1x"></i> <a href="info@ocaseattle.org">   info@ocaseattle.org</a></p>
+				<h4><i class="fa fa-phone fa-1x"></i> (206) 274-4656</p>
+			</div>
+			<div class="col-md-6 text-center">
+				<h3>OCA National Office</h3>
+				<h4><i class="fa fa-envelope fa-1x"></i><a href="mailto:oca@ocanational.org">   oca@ocanational.org</a></p>
+				<h4><i class="fa fa-phone fa-1x"></i> (202) 223-5500</p>
+			</div>
 		</div>
 	</div>
+
+	<!-- Display reasons on why to join -->
 	<div class="container section">
-		<h1 class="title text-center">Why Join?</h1>
-		<div class="titleBorder"></div>
-		<p class="contentText">Take pride in our community and be part of an active organization that will keep you engaged in Asian Pacific American advocacy. As a member of OCA, not only will you be supporting the APA community locally and nationally, you will also become eligible to enjoy the following benefits:</p>
-		<ul>
-			<li>Networking opportunities (over 80 chapters and affiliates)</li>
-			<li>Receive discounts or free entrance to all OCA and affiliated events</li>
-			<li>Get the latest information update on OCA’s work around immigration reform, health care reform, higher education, hate crimes and other issues impacting the APA community</li>
-			<li>OCA National Convention discounts</li>
-			<li>UPS savings program</li>
-		</ul>
+		<div class="container">
+			<h1 class="title text-center">Why Join?</h1>
+			<div class="titleBorder"></div>
+			<p class="contentText">Take pride in our community and be part of an active organization that will keep you engaged in Asian Pacific American advocacy. As a member of OCA, not only will you be supporting the APA community locally and nationally, you will also become eligible to enjoy the following benefits:</p>
+			<ul>
+				<li>Networking opportunities (over 80 chapters and affiliates)</li>
+				<li>Receive discounts or free entrance to all OCA and affiliated events</li>
+				<li>Get the latest information update on OCA’s work around immigration reform, health care reform, higher education, hate crimes and other issues impacting the APA community</li>
+				<li>OCA National Convention discounts</li>
+				<li>UPS savings program</li>
+			</ul>
+		</div>
 	</div>
+
+	<!-- Displays information regarding sign-up -->
 	<div class="container section">
 		<h1 class="title text-center">Sign Up</h1>
 		<div class="titleBorder"></div>
+
+		<div id="memberSignUp">
+		    <form name="memberForm">
+		        <label for="name">Name:</label>
+		        <input id="name" class="form-control" ng-model="name" type="name" required>
+		        <label for="date">Date:</label>
+		        <input id="date" class="form-control" ng-model="date" type="date" required>
+		        <label for="address">Address:</label>
+		        <input id="address" class="form-control" ng-model="address" type="address" required>
+		        <label for="zip">Zip:</label>
+		        <input id="zip" class="form-control" ng-model="zip" type="zip" required>
+		        <label for="city">City:</label>
+		        <input id="city" class="form-control" ng-model="city" type="city" required>
+		        <label for="state">State:</label>
+		        <input id="state" class="form-control" ng-model="state" type="state" required>
+		        <label for="email">Email:</label>
+		        <input id="email" class="form-control" ng-model="email" type="email" required>
+		        <label for="phone">Phone:</label>
+		        <input id="phone" class="form-control" ng-model="phone" type="phone" required>
+		        <button class="btn btn-primary" ng-click="checkMember()" ng-disabled="memberForm.$invalid">Submit</button>
+		    </form>
+            <p ng-show="emailInUse">It looks like you're already a member.</p>
+		</div>
+		<!--             name: $scope.name,
+            year: Number(newDate.substr(0,4)),
+            month: Number(newDate.substr(5,2)),
+            day: Number(newDate.substr(8,2)),
+            address: $scope.address,
+            zip: $scope.zip,
+            city: $scope.city,
+            state: $scope.state,
+            email: $scope.email,
+            phone: $scope.phone, -->
 	</div>
 </div>
