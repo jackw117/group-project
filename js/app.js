@@ -61,36 +61,18 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 	})
 })
 
-.factory('FeedService', ['$http', function($http) {
-    return {
-        parseFeed: function(url) {
-            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
-        }
-    }
-}])
 
-/* Uses Google API Feed */
-.controller("blogCtrl", ['$scope', 'FeedService', function($scope, Feed) {
-
+.controller("blogCtrl", function($scope, $http) {
    $scope.feedLinks = ['http://ocaseattle.org/feed','http://feeds.feedburner.com/angryasianman/hMam?format=xml','http://www.iexaminer.org/feed/'];
-    
     for (var i = 0; i < $scope.feedLinks.length; i++) {
-        Feed.parseFeed($scope.feedLinks[i]).then(function(res) {
-            $scope.feeds = res.data.responseData.feed.entries;
-            $scope.feeds = $scope.feeds.map(function(obj) {
-                //$('.blog-full').append(obj.content)
-                var rObj = obj;
-                var ref = obj.publishedDate.split(" ");
-                rObj['date'] = { 
-                    'month': ref[2],
-                    'day': ref[1],
-                    'year': ref[3],
-                };
-                return rObj;
-            })
+        $http({
+            method: 'GET',
+            url: $scope.feedLinks[i]
+        }).then(function successCallback(response) {
+            console.log(response);
         });
     };
-}])
+})
 
 .controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject, $compile, uiCalendarConfig){
 	var ref = new Firebase("https://oca.firebaseio.com/");
