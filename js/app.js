@@ -1,38 +1,32 @@
 // Create app
-var myApp = angular.module('myApp', ['ui.router', 'firebase', 'ui.calendar'])
+var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
 
 // Configure app
-myApp.config(function($stateProvider, $urlRouterProvider){
-	
-    //Redirects to home page for any unmatched url
-    $urlRouterProvider.otherwise('/');
-    
-    $stateProvider
-		.state('home', {
-		url: '/',
-		templateUrl: 'templates/home.html',
-		controller: 'homeCtrl',
+.config(function($routeProvider) {
+    $routeProvider
+		.when('/', {
+		  templateUrl: 'templates/home.html',
+		  controller: 'homeCtrl',
 		})
-		.state('about', {
-			url: '/about',
+		.when('/about/', {
 			templateUrl: 'templates/about.html',
 			controller: 'aboutCtrl'
 		})
-		.state('blog', {
-			url:'/blog',
+		.when('/blog/', {
 			templateUrl: 'templates/blog.html',
 			controller: 'blogCtrl'
 		})
-		.state('events', {
-			url: '/events',
+		.when('/events/', {
 			templateUrl: 'templates/events.html',
 			controller: 'eventsCtrl'
 		})
-		.state('connect', {
-			url: '/connect',
+		.when('/connect/', {
 			templateUrl: 'templates/connect.html',
 			controller: 'connectCtrl'
 		})
+        .otherwise({
+            redirectTo: '/'
+        });
 })
 
 
@@ -61,18 +55,34 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 	})
 })
 
+.factory('FeedService', ['$http', function($http) {
+    return {
+        parseFeed: function(url) {
+            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url))
+        }
+    }
+}])
 
-.controller("blogCtrl", function($scope, $http) {
-   $scope.feedLinks = ['http://ocaseattle.org/feed','http://feeds.feedburner.com/angryasianman/hMam?format=xml','http://www.iexaminer.org/feed/'];
+/* Uses Yahoo YQL API*/
+.controller('blogCtrl', ['$scope', 'FeedService', function($scope, Feed) {
+    $scope.feedLinks = ['http://ocaseattle.org/feed','http://www.iexaminer.org/feed/'];
     for (var i = 0; i < $scope.feedLinks.length; i++) {
-        $http({
-            method: 'GET',
-            url: $scope.feedLinks[i]
-        }).then(function successCallback(response) {
-            console.log(response);
-        });
-    };
-})
+         Feed.parseFeed($scope.feedLinks[i]).then(function(res) {
+            $scope.feeds = res.data.responseData.feed.entries;
+             $scope.feeds = $scope.feeds.map(function(obj) {
+                 //$('.blog-full').append(obj.content)
+                 var rObj = obj;
+                 var ref = obj.publishedDate.split(" ");
+                 rObj['date'] = { 
+                     'month': ref[2],
+                     'day': ref[1],
+                     'year': ref[3],
+                 };
+                 return rObj;
+             })
+         })
+    }                     
+}])
 
 .controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject, $compile, uiCalendarConfig){
 	var ref = new Firebase("https://oca.firebaseio.com/");
