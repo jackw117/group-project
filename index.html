@@ -55,13 +55,13 @@
             <a href="#/"><img alt="Brand" src="img/logo_header_small.png" class="brandLogo"/></a>
           </div>
 
-          <div class="collapse navbar-collapse" id="navLinks">
+          <div class="collapse navbar-collapse" id="navLinks" ng-controller="navCtrl">
             <ul class="nav navbar-nav navbar-right">
-              <li class="sliding-u-l-r"><a href="#/">Home</a></li>
-              <li class="sliding-u-l-r"><a href="#about">About</a></li>
-              <li class="sliding-u-l-r"><a href="#blog">Blog</a></li>
-              <li class="sliding-u-l-r"><a href="#events">Events</a></li>
-              <li class="sliding-u-l-r"><a href="#connect">Connect</a></li>
+              <li ng-class="{ active: isActive('/')}" class="hover-effect"><a href="#/">Home</a></li>
+              <li ng-class="{ active: isActive('/about/')}" class="hover-effect"><a href="#about">About</a></li>
+              <li ng-class="{ active: isActive('/blog/')}" class="hover-effect"><a href="#blog">Blog</a></li>
+              <li ng-class="{ active: isActive('/events/')}" class="hover-effect"><a href="#events">Events</a></li>
+              <li ng-class="{ active: isActive('/connect/')}" class="hover-effect"><a href="#connect">Connect</a></li>
             </ul>  
           </div>
         </div>
@@ -69,28 +69,95 @@
 
       <!-- Display different pages here -->
       <div class="container-fluid ui-view">
-        
-        <div ng-view></div>
+          <div ng-view></div>
       </div>
 
       <!-- Footer -->
       <div class="footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-7 leftFooter">
-              <p id="copyright">&#169; 2015, OCA Greater Seattle Chapter - All Rights Reserved</p>
-              <p>No part of this website or any of its contents may be reproduced, copied, modified or adapted, without the prior written consent from the OCA Greater Seattle Chapter.</p>
-              <span class="fa-3x">
-                <a href="https://twitter.com/ocaseattle"><i class="fa fa-twitter-square"></i></a>
-              </span>
-              <span class="fa-3x">
-                <a href="https://www.facebook.com/ocaseattle"><i class="fa fa-facebook-square"></i></a>
-              </span>
-            </div>
-            <div class="col-sm-5 rightFooter">
-                <a ui-sref="connect">Contact</a>
-            </div>
-          </div>
+          <div class="container-fluid">
+              <div class="row">
+			      <div class="col-sm-3 padding-topx3 footer-links-primary">
+                      <div class="h6">PAGES</div>
+                      <div class="row">
+                          <div class="col-xs-6 col-sm-12"><a href="#/">Home</a></div>
+                          <div class="col-xs-6 col-sm-12"><a href="#about">About</a></div>
+                          <div class="col-xs-6 col-sm-12"><a href="#blog">Blog</a></div>
+                          <div class="col-xs-6 col-sm-12"><a href="#events">Events</a></div>
+                          <div class="col-xs-6 col-sm-12"><a href="#connect">Connect</a></div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 visible-xs">
+                      <div class="rule margin-topx3 margin-bottomx3"></div>
+                  </div>
+                  <div class="col-sm-3 padding-topx3">
+                      <div class="h6">SOCIAL MEDIA</div>
+                      <div class="footer-icons">
+                          <span class="fa-3x"><a target="_blank" alt="Share on Twitter" title="Twitter" href="https://twitter.com/ocaseattle"><i class="fa fa-twitter-square"></i></a></span>
+                          <span class="fa-3x"><a target="_blank" alt="Share on Facebook" title="Facebook" href="https://www.facebook.com/ocaseattle"><i class="fa fa-facebook-square"></i></a></span>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 visible-xs">
+                      <div class="rule margin-topx3 margin-bottomx3"></div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top3x">
+                      <div class="h6">CONTACT</div>
+                      <div class="row">
+                          <div class="col-xs-7 col-md-12">
+                            <p>
+                                OCA – Greater Seattle
+                                <br />
+                                P.O. Box 14141, Seattle, WA
+                                <br />
+                                98104
+                                <br />
+                                info@ocaseattle.org
+                            </p>
+                          </div>
+                          <div class="col-xs-5 col-md-12">
+                              <p>
+                                  OCA National Office
+                                  <br />
+                                  oca@ocanational.org
+                                  <br />
+                                  (202) 223-5500
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 visible-xs footer-number-directions" aria-hidden="true"></div>
+                  <div class="col-xs-12 col-sm-9 col-sm-offset-3 col-xs-12 visible-xs visible-sm clearfix">
+                      <div class="rule margin-topx3 margin-bottomx3"></div>
+                  </div>
+                  <div class="col-xs-12 col-sm-9 col-sm-offset-3 col-md-3 col-md-offset-0 padding-topx3 email-update">
+                      <div class="h6 white">SIGNUP FOR E-MAIL UPDATES</div>
+                      <form>
+                          <div class="form-group">
+                              <input id="email" type="email" class="form-control" placeholder="Email Address"/>
+                          </div>
+                          <div class="form-group">
+                              <input id="firstName" type="text" class="form-control" placeholder="First Name" />
+                          </div>
+                          <div class="form-group">
+                              <input id="lastName" type="text" class="form-control" placeholder="Last Name" />
+                          </div>
+                          <div>
+                              <button type="submit" class="btn btn-danger">Submit</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+              <div class="row footer-detail">
+                  <div class="col-xs-12">
+                      <div class="rule margin-topx3 margin-bottomx3"></div>
+                  </div>
+                  <div class="col-sm-7 col-md-6 col-lg-9">
+                      <p>No part of this website or any of its contents may be reproduced, copied, modified or adapted, without the prior written consent from the OCA Greater Seattle Chapter.</p>
+                      <p>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC BY3.0</a></p>
+                  </div>
+                  <div class="col-sm 5 col-md-6 col-lg-3">
+                      <p id="copyright">&#169; 2015, OCA Greater Seattle Chapter - Some Rights Reserved</p>
+                  </div>
+              </div>  
         </div>
       </div>
   </body>

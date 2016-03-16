@@ -55,34 +55,32 @@ var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
 	})
 })
 
-.factory('FeedService', ['$http', function($http) {
-    return {
-        parseFeed: function(url) {
-            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url))
-        }
-    }
-}])
-
 /* Uses Yahoo YQL API*/
-.controller('blogCtrl', ['$scope', 'FeedService', function($scope, Feed) {
+.controller('blogCtrl', function($scope, $http) {
     $scope.feedLinks = ['http://ocaseattle.org/feed','http://www.iexaminer.org/feed/'];
     for (var i = 0; i < $scope.feedLinks.length; i++) {
-         Feed.parseFeed($scope.feedLinks[i]).then(function(res) {
-            $scope.feeds = res.data.responseData.feed.entries;
-             $scope.feeds = $scope.feeds.map(function(obj) {
-                 //$('.blog-full').append(obj.content)
-                 var rObj = obj;
-                 var ref = obj.publishedDate.split(" ");
-                 rObj['date'] = { 
-                     'month': ref[2],
-                     'day': ref[1],
-                     'year': ref[3],
-                 };
-                 return rObj;
-             })
-         })
-    }                     
-}])
+        $scope.feeds = [];
+        $http({
+            method: 'GET',
+            url: 'http://query.yahooapis.com/v1/public/yql?q=select title, pubDate, link, creator, description, content:encoded from rss where url="' + $scope.feedLinks[i] + '"&format=json'
+        }).then(function succesCallback(response) {
+            var objectItems = response.data.query.results.item;
+            for (var j = 0; j < objectItems.length; j++) {
+                objectItems[j].dateobj = new Date(objectItems[j].pubDate);
+                objectItems[j].date = objectItems[j].dateobj.toLocaleDateString();
+                
+                /* Tries to find image post*/
+                var div = document.createElement("div");
+                div.innerHTML = objectItems[j].encoded;
+                var img = div.querySelectorAll("img")[0];
+                
+                objectItems[j].imgsrc = img ? img.src : "";
+                $scope.feeds.push(objectItems[j]);
+            }
+        })
+    }
+    console.log($scope.feeds);
+})
 
 .controller('eventsCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject, $compile, uiCalendarConfig){
 	var ref = new Firebase("https://oca.firebaseio.com/");
@@ -304,4 +302,12 @@ var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
         }
     }
 
+})
+
+myApp.controller ('navCtrl', function($scope, $location) {
+    $scope.isActive = function (viewLocation) { 
+        return viewLocation === $location.path();
+    };
+    console.log($scope.isActive);
+    console.log($location.path());
 })

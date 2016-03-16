@@ -4,14 +4,14 @@
 	<div class="page-header">
 		<h1>Organization of Chinese Americans<br>Greater Seattle Chapter <br><small>"Embracing the hopes and aspirations of Asian Pacific Americans"</small></h1>
 	</div>
-	<button id="headerButton" ui-sref="connect" type="button" class="btn btn-danger">Get Involved</button>
+	<a href="#connect"><button id="headerButton" class="btn btn-danger">Get Involved</button></a>
 </div>
 
 <!-- Events -->
 <div class="container section">
     <h1 class="title text-center">Events</h1>
     <div class="titleBorder"></div>
-    <div class="container event-container" ng-repeat="event in events | orderBy: ['year', 'month', 'day']">
+    <div class="container event-container" ng-repeat="event in events | orderBy: ['year', 'month', 'day'] : true">
     	<div class="event-description">
     		<div class="event-date">
 	    		<div><p class="day">{{event.day}}</p></div>
@@ -44,7 +44,7 @@
 	    				<h2 class="postTitle">{{post.title}}</h2>
 	    				<p>{{post.dates}}</p>
 	    				<p class="postText">{{post.preview_text}}</p>
-	    				<div class="text-center"><a href="{{post.url}}"><button type="button" class="btn btn-danger">Read More</button></a>	</div>
+	    				<div class="text-center"><a href="{{post.url}}"><button type="button" class="blog-button">Read More</button></a>	</div>
 	    			</div>
 	    		</div>
 	  		</div>

@@ -1,36 +1,52 @@
-<div>
-	<div class="container-fluid section">
-	    <h1 class="title text-center">Blog</h1>
-	    <div class="titleBorder"></div>
-	<div class="text-center">
-	</div>
-	<div class="input-group search-box">
-    	<span class="input-group-btn">
-    		<button class="btn btn-default" type="button"><i class="fa fa-filter"></i></button>
-    	</span>
-    	<input type="text"  ng-model="search" class="form-control" placeholder="Search for...">
+<div class="container-fluid section">
+    <h1 class="title text-center">Blog</h1>
+    <div class="titleBorder"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div>
+                    <form>
+                        <fieldset>
+                            <legend>Filter Search</legend>
+                            <div class="input-group">
+                                <input type="text"  ng-model="search" class="form-control" placeholder="Search for..." />
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="sources">
+                    <div class="legend">Sources</div>
+                    <label>
+                        <input checked type="checkbox" />
+                        OCA
+                    </label>
+                    <label>
+                        <input checked type="checkbox" />
+                        The International Examiner
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-10 .blog-list">
+                <div class="row">
+                    <div class="blog-outer-square" ng-repeat="feed in feeds | filter:search | orderBy: 'dateobj': true">
+                        <div class="col-sm-3 col-md-5 blog-photos" ng-style="{'background-image': 'url({{feed.imgsrc}})'}"></div>
+                        <div class="blog-box col-sm-9 col-md-7">
+                            <div class="blog-title"><a class="blog-link" target="_blank" href="{{feed.link}}">{{feed.title}}</a></div>
+                            <div class="blog-summary">
+                                <p>{{feed.description}}</p>
+                                <div class="blog-full container"></div>
+                            </div>
+                            <div class="blog-bottom-of-box">
+                                <p class="creator">By {{feed.creator}}</p>
+                                <p class="pubdate">{{feed.date}}</p>
+                                <div class="blog-clear"></div>
+                            </div>
+                            <div><button class="blog-button">Read More</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="container" ng-repeat="feed in feeds | filter:search">
-    	<div class="blog-box">
-	    	<div class="blog-date">
-		    	<div>
-		    		<p class="day">{{feed.date.day}}</p>
-		    	</div>
-			    <div class="right">
-				    <p class="month">{{feed.date.month}}</p>
-				    <p class="year">{{feed.date.year}}</p>
-			    </div>
-	    		<div>
-	    			<p class="blog-title"><a class="blog-link" href="{{feed.link}}">{{feed.title}}</a></p>
-	    		</div>
-	    	</div>
-
-	    	<div class="blog-summary">
-	    		<p>{{feed.author}}</p>
-		    	<p>{{feed.contentSnippet}}</p>
-		    	<div class="blog-full container"></div>
-		    </div>
-		</div>
-	</div>
 </div>
