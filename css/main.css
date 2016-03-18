@@ -30,27 +30,41 @@ legend {
 .alternateBackground1 {
 	background: 
         linear-gradient(
-        rgba(69, 105, 144, 1), 
-        rgba(69, 105, 144, 1)
-        ),url(../img/BambooBackground.jpg) no-repeat center center;
+        rgba(29, 29, 29, 0.8), 
+        rgba(29, 29, 29, 0.8)
+        ),url(http://ocaseattle.org/wp/wp-content/uploads/2011/07/DSC_1116.jpg) no-repeat center center;
 	background-size: cover;
 }
 
 .alternateBackground2 {
-	background-color: rgba(240, 237, 227, 0.9);
+	background-color: rgb(244, 244, 244);
 }
 
 .alternateBackground3 {
-	background: url(../img/MarchBackground.jpg) no-repeat center center;
+	background: 
+        linear-gradient(
+        rgba(29, 29, 29, 0.7), 
+        rgba(29, 29, 29, 0.7)
+        ),url(http://ocaseattle.org/wp/wp-content/uploads/2011/09/2750181430103.jpg) no-repeat;
 	background-size: cover;
+    background-position: 50% 20%;
 }
 
 .alternateBackground4 {
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(249, 249, 249);
 }
 
 .alternateBackground5 {
-    
+    background: 
+        linear-gradient(
+        rgba(236, 70, 51, 0.4), 
+        rgba(236, 70, 51, 0.4)
+        ),url(http://www.pixempire.com/images/preview/vector-art-chinese-cloud-pattern-isolated-on-red-background.jpg) no-repeat;
+	background-size: cover;
+}
+
+.alternateBackground6 {
+    background-color: rgb(237, 237, 237);
 }
 
 nav {
@@ -80,15 +94,21 @@ nav {
 	margin-right: auto;
 }
 
+
 .section {
 	padding: 50px 0;
-	border-top-color: #C0C0C0;
-	border-top-style: solid;
-	border-top-width: thin;
 }
 
 .submitMemberbutton {
 	margin-top: 10px;
+}
+
+.white-color {
+    color: rgb(229, 229, 239);
+}
+
+.row {
+    margin: 0;
 }
 
 /*--------- Header section for Home ------------*/
@@ -127,10 +147,9 @@ nav {
 /*------------ Events section for Home -----------*/
 
 .event-container {
-    padding: 0 2em;
+    padding: 0 4em;
     border-left: solid thin gray;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 15px auto;
 }
 
 .event-date {
@@ -171,6 +190,10 @@ div.right {
     padding: 8.5px 0;
 }
 
+#homeeventsButton {
+    text-align: center;
+}
+
 /*------------------------------------------------*/
 
 /*------------ Blogs section for Home ------------*/
@@ -178,13 +201,12 @@ div.right {
 .thumbnail {
 	border-style: none;
 	padding: 0;
+    background: none;
 }
 
 .thumbnail > div:last-child {
-	background-color: rgba(240, 240, 240, 0.1);
 	padding: 5px;
 	position: relative;
-	border: solid thin rgb(232, 232, 232);
 }
 
 .thumbnail > div:last-child div:last-child {
@@ -209,6 +231,40 @@ div.right {
 
 img {
     width: inherit;
+}
+
+/*-----------------------------------------------*/
+
+/*------------ Bottom section in Home -----------*/
+
+.impact {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.impact img {
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.impact h3 {
+    color: slategray;
+}
+
+.impact #homeimpactsButton {
+    text-align: center;
+}
+
+/*-----------------------------------------------*/
+
+/*------------ Bottom section in Home -----------*/
+
+.bottomStatement {
+    color: rgb(230, 230, 230);
+    line-height: 1.5;
+    font-size: 15px;
 }
 
 /*-----------------------------------------------*/
@@ -479,7 +535,6 @@ button.admin-buttons {
     
     /*------------- Connect Page ------------*/
     
-    
     .benefits li {
         min-height: 250px;
     }
@@ -489,7 +544,12 @@ button.admin-buttons {
     }
     
     /*---------------------------------------*/
+    
+    /*-------------- Home Page --------------*/
 
+    
+    /*---------------------------------------*/
+    
     /*------------ Events in Home -----------*/
 
 	.event-date {
