@@ -1,5 +1,5 @@
 // Create app
-var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
+var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar', 'ngSanitize'])
 
 // Configure app
 .config(function($routeProvider) {
@@ -24,13 +24,16 @@ var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
 			templateUrl: 'templates/connect.html',
 			controller: 'connectCtrl'
 		})
+        .when('/feedback/', {
+            templateUrl: 'templates/feedback.html',
+            controller: 'feedbackCtrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
 })
 
-
-.controller('homeCtrl', function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject){
+.controller('homeCtrl', function($scope, $http, $firebaseAuth, $firebaseArray, $firebaseObject) {
     var ref = new Firebase("https://oca.firebaseio.com/");
     var eventsRef = ref.child("events");
     $scope.events = $firebaseArray(eventsRef);
@@ -46,6 +49,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
         $('.bxslider').bxSlider();
     })
     
+    
 })
 
 .controller('aboutCtrl', function($scope, $http){
@@ -56,7 +60,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
 })
 
 /* Uses Yahoo YQL API*/
-.controller('blogCtrl', function($scope, $http) {
+.controller('blogCtrl', function($scope, $http, $sce) {
     $scope.feedLinks = ['http://ocaseattle.org/feed','http://www.iexaminer.org/feed/'];
     for (var i = 0; i < $scope.feedLinks.length; i++) {
         $scope.feeds = [];
@@ -73,6 +77,10 @@ var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
                 var div = document.createElement("div");
                 div.innerHTML = objectItems[j].encoded;
                 var img = div.querySelectorAll("img")[0];
+                
+                /* Cleans descriptions because of HTML */
+                //No need for now. Not creating blog post page.
+                //objectItems[j].encoded = //$sce.trustAsHtml(objectItems[j].encoded);
                 
                 objectItems[j].imgsrc = img ? img.src : "";
                 $scope.feeds.push(objectItems[j]);
@@ -304,10 +312,26 @@ var myApp = angular.module('myApp', ['ngRoute', 'firebase', 'ui.calendar'])
 
 })
 
+.controller ('feedbackCtrl', function($scope, $firebaseAuth, $firebaseArray, $firebaseObject) {
+    var ref = new Firebase("https://oca.firebaseio.com/");
+    var feedbackRef = ref.child("feedbacks");
+    $scope.feedback = $firebaseArray(feedbackRef);
+    
+    $scope.feedbacktext = "";
+    
+    $scope.sendfeedback = function() {
+        console.log("sdfsdfdf");
+        $scope.feedback.$add({
+            text: $scope.feedbacktext
+        }).then(function() {
+            $scope.feedbacktext = "";
+        })
+    }
+})
+
 myApp.controller ('navCtrl', function($scope, $location) {
+    
     $scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
     };
-    console.log($scope.isActive);
-    console.log($location.path());
 })

@@ -7,53 +7,56 @@
 	<a href="#connect"><button id="headerButton" class="btn btn-danger">Get Involved</button></a>
 </div>
 
-<!-- Events -->
-<div class="container section">
-    <h1 class="title text-center">Events</h1>
-    <div class="titleBorder"></div>
-    <div class="container event-container" ng-repeat="event in events | orderBy: ['year', 'month', 'day'] : true">
-    	<div class="event-description">
-    		<div class="event-date">
-	    		<div><p class="day">{{event.day}}</p></div>
-		    	<div class="right">
-			    		<p class="month">{{event.month}}</p>
-			    		<p class="year">{{event.year}}</p>
-		    	</div>
-	    	</div>
-    		<div>
-    			<p class="event-name">{{event.title}}</p>
-    			<p class="event-address">{{event.location}}</p>
-    		</div>
-    	</div>
-    	<div class="event-summary">
-    		<p>{{event.description}}</p>
-    	</div>
-    </div>
-</div>
 
-<!-- Blogs -->
-<div class="alternateBackground1">
-	<div class="container section">
-	    <h1 class="title text-center">Featured Posts</h1>
-	    <div class="titleBorder"></div>
-	    <div class="row">
-	    	<div class="col-sm-4" ng-repeat="post in blogs">
-	    		<div class="thumbnail">
-	    			<div ng-style="{background:'url({{post.image}}) no-repeat center center', 'min-height':'300px'}"></div>
-	    			<div>
-	    				<h2 class="postTitle">{{post.title}}</h2>
-	    				<p>{{post.dates}}</p>
-	    				<p class="postText">{{post.preview_text}}</p>
-	    				<div class="text-center"><a href="{{post.url}}"><button type="button" class="blog-button">Read More</button></a>	</div>
-	    			</div>
-	    		</div>
-	  		</div>
-		</div>
-	</div>
-</div>
+    <!-- Events -->
+    <div class="section alternateBackground5">
+        <h1 class="title text-center">Events</h1>
+        <div class="titleBorder"></div>
+        
+        <div class="container event-container" ng-repeat="event in events | orderBy: ['year', 'month', 'day'] : true | limitTo: 3">
+            <div class="event-description">
+                <div class="event-date float-left">
+                    <div class="float-left"><p class="day">{{event.day}}</p></div>
+                    <div class="float-left right">
+                            <p class="month">{{event.month}}</p>
+                            <p class="year">{{event.year}}</p>
+                    </div>
+                </div>
+                <div class="float-left event-address-and-title">
+                    <p class="event-name">{{event.title}}</p>
+                    <p class="event-address">{{event.location}}</p>
+                </div>
+            </div>
+            <div class="event-summary blog-clear">
+                {{event.description}}
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Blogs -->
+    <div class="alternateBackground5">
+        <div class="container section">
+            <h1 class="title text-center">Featured Posts</h1>
+            <div class="titleBorder"></div>
+            <div class="row">
+                <div class="col-sm-4" ng-repeat="post in blogs">
+                    <div class="thumbnail">
+                        <div ng-style="{background:'url({{post.image}}) no-repeat center center', 'min-height':'200px'}"></div>
+                        <div>
+                            <h2 class="postTitle">{{post.title}}</h2>
+                            <p>{{post.dates}}</p>
+                            <p class="postText">{{post.preview_text}}</p>
+                            <div class="text-center"><a href="{{post.url}}"><button type="button" class="blog-button">Read More</button></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <!-- Photos -->
-<div class="alternateBackground2">
+<div class="alternateBackground5">
 	<div class="container section">
 	    <h1 class="title text-center">Photos</h1>
 	    <div class="titleBorder"></div>

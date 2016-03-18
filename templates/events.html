@@ -6,15 +6,15 @@
             <input id="email" class="form-control" ng-model="email" type="email" required>
             <label for="password">Password:</label>
             <input id="password" class="form-control" ng-model="password" type="password" required>
-            <p ng-show="submitClick && !loggedIn">Sorry. You are not authorized to add events to this website.</p>
+            <p ng-show="submitClick && !loggedIn"> You are not authorized to add events to this website.</p>
             <button class="btn btn-primary" ng-click="signIn()" ng-disabled="logInForm.$invalid">Submit</button>
             <button class="btn btn-warning" ng-click="signInClick = false">Cancel</button>
         </form>
     </div>
     
-    <div ng-show="loggedIn">
-        <button class="btn btn-info" ng-hide="eventClick" ng-click="eventClick = true">Add Event</button>
-        <button class="btn btn-info" ng-hide="adminClick" ng-click="adminClick = true">Add a New Admin</button>
+    <div ng-show="loggedIn ">
+        <button class="admin-buttons btn btn-info" ng-hide="eventClick" ng-click="eventClick = true">Add Event</button>
+        <button class="admin-buttons btn btn-info" ng-hide="adminClick" ng-click="adminClick = true">Add a New Admin</button>
         
         <form ng-show="eventClick" name="eventForm">
             <label for="title">Title:</label>
@@ -53,27 +53,27 @@
     </div>
 </div>
 
-<div class="alternateBackground2">
+<div>
     <div class="container section">
         <h1 class="title text-center">Upcoming Events</h1>
         <div class="titleBorder"></div>
 
-        <div class="container event-container" ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day']">
+        <div class="container event-container" ng-repeat="event in upcomingEvents | orderBy: ['year', 'month', 'day'] : true">
             <div class="event-description">
-                <div class="event-date">
-                    <div><p class="day">{{event.day}}</p></div>
-                    <div class="right">
+                <div class="event-date float-left">
+                    <div class="float-left"><p class="day">{{event.day}}</p></div>
+                    <div class="float-left right">
                             <p class="month">{{event.month}}</p>
                             <p class="year">{{event.year}}</p>
                     </div>
                 </div>
-                <div>
+                <div class="float-left event-address-and-title">
                     <p class="event-name">{{event.title}}</p>
                     <p class="event-address">{{event.location}}</p>
                 </div>
             </div>
-            <div class="event-summary">
-                <p>{{event.description}}</p>
+            <div class="event-summary blog-clear">
+                {{event.description}}
             </div>
             <button class="btn btn-warning" ng-show="loggedIn" ng-click="removeUpcoming($index, event)">Remove</button>
         </div>
@@ -83,25 +83,24 @@
         <div class="container section">
         <h1 class="title text-center">Past Events</h1>
         <div class="titleBorder"></div>
-
-        <div class="container event-container" ng-repeat="event in pastEvents | orderBy: ['year', 'month', 'day']">
+        <div class="container event-container" ng-repeat="event in pastEvents | orderBy: ['year', 'month', 'day'] : true">
             <div class="event-description">
-                <div class="event-date">
-                    <div><p class="day">{{event.day}}</p></div>
-                    <div class="right">
+                <div class="event-date float-left">
+                    <div class="float-left"><p class="day">{{event.day}}</p></div>
+                    <div class="float-left right">
                             <p class="month">{{event.month}}</p>
                             <p class="year">{{event.year}}</p>
                     </div>
                 </div>
-                <div>
+                <div class="float-left event-address-and-title">
                     <p class="event-name">{{event.title}}</p>
                     <p class="event-address">{{event.location}}</p>
                 </div>
             </div>
-            <div class="event-summary">
-                <p>{{event.description}}</p>
+            <div class="event-summary blog-clear">
+                {{event.description}}
             </div>
-            <button class="btn btn-warning" ng-show="loggedIn" ng-click="removePast($index, event)">Remove</button>
+            <button class="btn btn-warning" ng-show="loggedIn" ng-click="removeUpcoming($index, event)">Remove</button>
         </div>
         </div>
     </div>

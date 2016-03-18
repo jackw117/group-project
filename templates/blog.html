@@ -3,7 +3,7 @@
     <div class="titleBorder"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 blog-filters">
                 <div>
                     <form>
                         <fieldset>
@@ -15,6 +15,7 @@
                         </fieldset>
                     </form>
                 </div>
+                <!-- Taken out for later implementation
                 <div class="sources">
                     <div class="legend">Sources</div>
                     <label>
@@ -25,7 +26,7 @@
                         <input checked type="checkbox" />
                         The International Examiner
                     </label>
-                </div>
+                </div>-->
             </div>
             <div class="col-md-10 .blog-list">
                 <div class="row">
@@ -34,7 +35,7 @@
                         <div class="blog-box col-sm-9 col-md-7">
                             <div class="blog-title"><a class="blog-link" target="_blank" href="{{feed.link}}">{{feed.title}}</a></div>
                             <div class="blog-summary">
-                                <p>{{feed.description}}</p>
+                                <p ng-bind-html="feed.description"></p>
                                 <div class="blog-full container"></div>
                             </div>
                             <div class="blog-bottom-of-box">
@@ -42,7 +43,7 @@
                                 <p class="pubdate">{{feed.date}}</p>
                                 <div class="blog-clear"></div>
                             </div>
-                            <div><button class="blog-button">Read More</button></div>
+                            <div><a target="_blank" href="{{feed.link}}"><button class="blog-button">Read More</button></a></div>
                         </div>
                     </div>
                 </div>
